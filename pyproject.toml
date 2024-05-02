@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "booktale"
+version = "0.1.0"
+description = "Project for college"
+authors = ["darkfos <darkfos82@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = {extras = ["all"], version = "^0.110.3"}
+sqlalchemy = "^2.0.29"
+asyncpg = "^0.29.0"
+alembic = "^1.13.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
