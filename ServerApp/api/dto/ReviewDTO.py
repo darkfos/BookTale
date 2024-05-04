@@ -14,3 +14,13 @@ class AddReview(ReviewBase):
 class DeleteReview(BaseModel):
     
     id_review: Annotated[int, Field()]
+
+
+class ReviewIsCreated(BaseModel):
+
+    review_created: Annotated[bool, Field()]
+
+
+class ReviewIsDeleted(BaseModel):
+
+    review_deleted: Annotated[bool, Field()]
