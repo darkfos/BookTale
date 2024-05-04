@@ -29,6 +29,7 @@ class GetUserInfo(UserBase):
 class ResponseToken(BaseModel):
 
     token: Annotated[str, Field()]
+    token_type: Annotated[str, Field()]
     refresh_token: Annotated[str, Field()]
 
 
