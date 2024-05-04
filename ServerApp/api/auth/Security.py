@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 
 class SecurityApp:
 
-    oauth2_scheme = OAuth2PasswordBearer(tokenUrl="user/auth")
+    oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/oauth2")
 
     def __init__(self) -> None:
         self.crypt: CryptContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -69,23 +69,24 @@ class SecurityApp:
             case "access":
                 pass
             case "refresh":
+                print(token)
                 #Encode
-                data: dict = jwt.decode(token=token, key=APISettings.api_refresh_key, algorithms=APISettings.algorithm)
+                data: dict = jwt.decode(token=token, key=api_settings.api_refresh_key, algorithms=api_settings.algorithm)
                 #Create a new token
                 #Creating access token
-                jwt_access_token = dict(user_login=data.get('login'), user_password=data.get('hashed_password'), user_id=data.get('id_user'))
-                jwt_access_token.update({"exp": ( datetime.utcnow() + timedelta(minutes=APISettings.api_time) ) })
+                jwt_access_token = dict(user_login=data.get('user_login'), user_password=data.get('user_password'), user_id=data.get('id_user'))
+                jwt_access_token.update({"exp": ( datetime.now() + timedelta(minutes=api_settings.api_time) ) })
 
                 #Creating refresh token
-                jwt_refresh_token = dict(user_login=login, user_password=hashed_password, user_id=id_user)
-                jwt_refresh_token.update({"exp": ( datetime.utcnow() + timedelta(days=APISettings.api_refresh_time) ) })
+                jwt_refresh_token = dict(user_login=data.get('user_login'), user_password=data.get('user_password'), user_id=data.get('id_user'))
+                jwt_refresh_token.update({"exp": ( datetime.now() + timedelta(days=api_settings.api_refresh_time) ) })
 
                 #Result tokens
-                jwt_access_token = jwt.encode(jwt_access_token, APISettings.api_key, algorithm=APISettings.algorithm)
-                jwt_refresh_token = jwt.encode(jwt_refresh_token, APISettings.api_refresh_key, algorithm=APISettings.algorithm)
+                jwt_access_token = jwt.encode(jwt_access_token, api_settings.api_key, algorithm=api_settings.algorithm)
+                jwt_refresh_token = jwt.encode(jwt_refresh_token, api_settings.api_refresh_key, algorithm=api_settings.algorithm)
                 
                 return ResponseToken(
-                    token=jwt_access_token,
+                    access_token=jwt_access_token,
                     refresh_token=jwt_refresh_token,
                     token_type="bearer"
                 )
