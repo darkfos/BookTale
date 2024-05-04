@@ -42,12 +42,12 @@ class SecurityApp:
 
             #Creating access token
             jwt_access_token = dict(user_login=login, user_password=hashed_password, user_id=id_user)
-            expire = datetime.now() + timedelta(minutes=api_settings.api_time)
+            expire = datetime.utcnow() + timedelta(minutes=api_settings.api_time)
             jwt_access_token.update({"exp": expire})
 
             #Creating refresh token
             jwt_refresh_token = dict(user_login=login, user_password=hashed_password, user_id=id_user)
-            expire = datetime.now() + timedelta(days=api_settings.api_refresh_time)
+            expire = datetime.utcnow() + timedelta(days=api_settings.api_refresh_time)
             jwt_refresh_token.update({"exp": expire})
 
             #Result tokens
@@ -76,11 +76,11 @@ class SecurityApp:
                 #Create a new token
                 #Creating access token
                 jwt_access_token = dict(user_login=data.get('user_login'), user_password=data.get('user_password'), user_id=data.get('id_user'))
-                jwt_access_token.update({"exp": ( datetime.now() + timedelta(minutes=api_settings.api_time) ) })
+                jwt_access_token.update({"exp": ( datetime.utcnow() + timedelta(minutes=api_settings.api_time) ) })
 
                 #Creating refresh token
                 jwt_refresh_token = dict(user_login=data.get('user_login'), user_password=data.get('user_password'), user_id=data.get('id_user'))
-                jwt_refresh_token.update({"exp": ( datetime.now() + timedelta(days=api_settings.api_refresh_time) ) })
+                jwt_refresh_token.update({"exp": ( datetime.utcnow() + timedelta(days=api_settings.api_refresh_time) ) })
 
                 #Result tokens
                 jwt_access_token = jwt.encode(jwt_access_token, api_settings.api_key, algorithm=api_settings.algorithm)

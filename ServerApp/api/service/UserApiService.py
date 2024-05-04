@@ -38,8 +38,10 @@ class UserService:
         )
     
     @staticmethod
-    async def delete_user(session: Session, del_user: UserDo):
-        result = UserRepository.delete_user(session=session, user_id=int(del_user.token))
+    async def delete_user(session: Session, usr_token: str):
+        #Decode user
+        user_id: int = (SecurityApp().decode_jwt_token(token_type="access", token=usr_token)).get("user_id")
+        result = UserRepository.delete_user(session=session, user_id=int(user_id))
 
         result = True if result else False
         
