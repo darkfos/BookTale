@@ -1,5 +1,5 @@
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy import String, Text, BLOB, Integer
+from sqlalchemy import String, Text, LargeBinary, Integer
 from database.dec_base import DeclBase
 from datetime import datetime
 
@@ -10,8 +10,8 @@ class Book(DeclBase):
 
     title: Mapped[str] = mapped_column(String(120), nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)
-    photo_book: Mapped[bytes] = mapped_column(BLOB, nullable=False)
-    file_data: Mapped[bytes] = mapped_column(BLOB, nullable=False)
+    photo_book: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
+    file_data: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
 
     id_user: Mapped[int] = mapped_column(Integer, primary_key=True)
 

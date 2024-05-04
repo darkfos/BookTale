@@ -12,13 +12,13 @@ class DatabaseSettings:
         self.__echo: bool = True
     
     @property
-    async def db_url(self): return self.__DB_URL
+    def db_url(self): return self.__DB_URL
 
     @property
-    async def echo(self): return self.echo
+    def echo(self): return self.echo
 
     @echo.setter
-    async def echo(self, echo_type: bool): self.__echo = echo_type
+    def echo(self, echo_type: bool): self.__echo = echo_type
 
 
 class APISettings:
