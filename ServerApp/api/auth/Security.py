@@ -55,7 +55,7 @@ class SecurityApp:
             jwt_refresh_token = jwt.encode(jwt_refresh_token, api_settings.api_refresh_key, algorithm=api_settings.algorithm)
             
             return ResponseToken(
-                token=jwt_access_token,
+                access_token=jwt_access_token,
                 refresh_token=jwt_refresh_token,
                 token_type="Bearer"
             )
@@ -70,10 +70,10 @@ class SecurityApp:
                 pass
             case "refresh":
                 #Encode
-                jwt_data_about_user: dict = jwt.decode(token=token, key=APISettings.api_refresh_key, algorithms=APISettings.algorithm)
+                data: dict = jwt.decode(token=token, key=APISettings.api_refresh_key, algorithms=APISettings.algorithm)
                 #Create a new token
                 #Creating access token
-                jwt_access_token = dict(user_login=login, user_password=hashed_password, user_id=id_user)
+                jwt_access_token = dict(user_login=data.get('login'), user_password=data.get('hashed_password'), user_id=data.get('id_user'))
                 jwt_access_token.update({"exp": ( datetime.utcnow() + timedelta(minutes=APISettings.api_time) ) })
 
                 #Creating refresh token
