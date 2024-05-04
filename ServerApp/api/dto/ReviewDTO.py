@@ -4,7 +4,7 @@ from typing import Annotated, List
 
 class ReviewBase(BaseModel):
 
-    message: Annotated[str, Field()]
+    message: Annotated[str, Field(max_length=350)]
 
 
 class AddReview(ReviewBase):
@@ -24,3 +24,7 @@ class ReviewIsCreated(BaseModel):
 class ReviewIsDeleted(BaseModel):
 
     review_deleted: Annotated[bool, Field()]
+
+class ReviewData(ReviewBase):
+
+    id: Annotated[int, Field()]
