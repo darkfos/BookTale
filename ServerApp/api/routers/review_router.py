@@ -38,3 +38,12 @@ async def delete_review(
     review_id: int
 ) -> ReviewIsDeleted:
     return await ReviewService.delete_review(session=session, review_id=review_id)
+
+
+@review_router.get("/unique-review", status_code=status.HTTP_200_OK, response_model=ReviewData)
+async def get_review(
+    session: Annotated[Session, Depends(db_worker.get_session)],
+    usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
+    review_id: int
+) -> ReviewData:
+    return await ReviewService.get_by_id(session=session, review_id=review_id)

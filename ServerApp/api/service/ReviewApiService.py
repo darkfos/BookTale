@@ -40,7 +40,7 @@ class ReviewService:
                 )
                     for review in result_review_req
             ]
-        return http_404_review_not_found()
+        return await http_404_review_not_found()
 
     @staticmethod
     async def delete_review(
@@ -50,3 +50,18 @@ class ReviewService:
         
         result: bool = ReviewRepository.delete_review_by_id(session=session, review_id=review_id)
         return ReviewIsDeleted(review_deleted=result)
+    
+    @staticmethod
+    async def get_by_id(
+        session: Session,
+        review_id: int
+    ) -> ReviewData:
+        
+        result: Union[bool, Review] = ReviewRepository.get_review_by_id(session=session, review_id=review_id)
+        if result:
+            return ReviewData(
+                id=result[0].id,
+                message=result[0].message
+            )
+        
+        return await http_404_review_not_found()

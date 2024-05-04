@@ -34,3 +34,17 @@ class ReviewRepository:
             return True
         except Exception as ex:
             return False
+        
+    @staticmethod
+    def get_review_by_id(
+        session: Session, review_id: int
+    ) -> Union[bool, Review]:
+        try:
+            stmt = select(Review).where(Review.id == review_id)
+            result = (session.execute(stmt)).one_or_none()
+
+            if result:
+                return result
+            raise ex
+        except Exception as ex:
+            return False
