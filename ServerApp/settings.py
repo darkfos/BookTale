@@ -30,24 +30,20 @@ class APISettings:
         self.__api_refresh_time: Final[int] = int(os.getenv("API_REFRESH_KEY_TIME_TO_WORK"))
         self.__algorithm: Final[str] = os.getenv("API_ALGORITHM")
 
-    @staticmethod
     @property
     def api_key(self) -> str: return self.__api_key
 
-    @staticmethod
     @property
     def api_refresh_key(self) -> str: return self.__api_refresh_key
 
-    @staticmethod
     @property
     def api_time(self) -> int: return self.__api_time
 
-    @staticmethod
     @property
     def api_refresh_time(self) -> int: return self.__api_refresh_time
 
-    @staticmethod
     @property
     def algorithm(self) -> str: return self.__algorithm
     
 db_settings: DatabaseSettings = DatabaseSettings()
+api_settings: APISettings = APISettings()

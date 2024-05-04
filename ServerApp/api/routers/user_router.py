@@ -44,6 +44,7 @@ async def auth_user(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     session: Annotated[Session, Depends(db_worker.get_session)]
 ):
+    print("dsakldlkslajdklasjkldjk".upper())
     auth_user: int = SecurityApp().authenticate_user(session=session, login=form_data.username, password=form_data.password)
     token_data: ResponseToken = SecurityApp().create_access_token(
         login=form_data.username,
@@ -52,3 +53,11 @@ async def auth_user(
     )
 
     return token_data
+
+
+@user_router.get("/get-info", status_code=status.HTTP_201_CREATED, response_model=ResponseToken)
+async def get_information_about_user(
+    usr_data: Annotated[UserDo, Depends(SecurityApp().oauth2_scheme)],
+    jwt_token: str
+) -> ResponseToken:
+    return SecurityApp().encode_jwt_token(token_type="refresh", token=jwt_token)

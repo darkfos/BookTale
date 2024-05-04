@@ -45,7 +45,8 @@ def http_400_user_not_authorizated():
 
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Вы не авторизированы в систеvе"
+        detail="Вы не авторизированы в систеvе",
+        headers={"WWW-Authenticate": "Bearer"}
     )
 
 
