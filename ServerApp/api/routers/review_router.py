@@ -29,3 +29,12 @@ async def get_all_review(
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)]
 ) -> List[ReviewData]:
     return await ReviewService.get_all_reviews_user(session=session, token=usr_data)
+
+
+@review_router.delete("/delete-review", status_code=status.HTTP_200_OK, response_model=ReviewIsDeleted)
+async def delete_review(
+    session: Annotated[Session, Depends(db_worker.get_session)],
+    usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
+    review_id: int
+) -> ReviewIsDeleted:
+    return await ReviewService.delete_review(session=session, review_id=review_id)

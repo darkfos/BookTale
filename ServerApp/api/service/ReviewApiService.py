@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from database.repository.ReviewRepository import ReviewRepository
 from api.exception.http_exception_review import *
 from api.auth.Security import SecurityApp
-from api.dto.ReviewDTO import AddReview, ReviewIsCreated, ReviewBase, ReviewData
+from api.dto.ReviewDTO import AddReview, ReviewIsCreated, ReviewBase, ReviewData, ReviewIsDeleted
 from database.models.ReviewTable import Review
 from typing import List, Union
 
@@ -41,3 +41,12 @@ class ReviewService:
                     for review in result_review_req
             ]
         return http_404_review_not_found()
+
+    @staticmethod
+    async def delete_review(
+        session: Session,
+        review_id: int
+    ) -> ReviewIsDeleted:
+        
+        result: bool = ReviewRepository.delete_review_by_id(session=session, review_id=review_id)
+        return ReviewIsDeleted(review_deleted=result)

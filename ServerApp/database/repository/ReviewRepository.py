@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, delete
 from database.models.ReviewTable import Review
 from typing import Union
+from api.dto.ReviewDTO import ReviewIsDeleted
 
 
 class ReviewRepository:
@@ -23,3 +24,13 @@ class ReviewRepository:
         if result:
             return result
         return False
+
+    @staticmethod
+    def delete_review_by_id(session: Session, review_id: int) -> bool:
+        try:
+            stmt = delete(Review).where(Review.id == review_id)
+            session.execute(stmt)
+            session.commit()
+            return True
+        except Exception as ex:
+            return False
