@@ -16,3 +16,6 @@ class Database:
     
     def create_all_tables(self):
         DeclBase.metadata.create_all(bind=self.engine)
+
+
+db_worker: Database = Database()

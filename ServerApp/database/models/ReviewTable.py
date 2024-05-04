@@ -6,13 +6,13 @@ from datetime import datetime
 
 class Review(DeclBase):
 
-    __tablename__ = "Review"
+    __tablename__ = "review"
 
     message: Mapped[str] = mapped_column(String(350))
-    id_user: Mapped[int] = mapped_column(ForeignKey("User.id"))
+    id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
     
     #relation to user
-    user: Mapped["User"] = relationship("User", back_populates="reviews")
+    user: Mapped["User"] = relationship(back_populates="reviews")
 
 
     def __str__(self):

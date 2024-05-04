@@ -15,7 +15,7 @@ class DatabaseSettings:
     def db_url(self): return self.__DB_URL
 
     @property
-    def echo(self): return self.echo
+    def echo(self): return self.__echo
 
     @echo.setter
     def echo(self, echo_type: bool): self.__echo = echo_type

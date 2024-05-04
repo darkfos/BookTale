@@ -1,22 +1,22 @@
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy import String, Text, LargeBinary, Integer
+from sqlalchemy import String, Text, LargeBinary, Integer, ForeignKey
 from database.dec_base import DeclBase
 from datetime import datetime
 
 
 class Book(DeclBase):
 
-    __tablename__ = "Book"
+    __tablename__ = "book"
 
     title: Mapped[str] = mapped_column(String(120), nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)
     photo_book: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
     file_data: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
 
-    id_user: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
     #relation
-    user: Mapped["User"] = relationship("User", back_populates="books")
+    user: Mapped["User"] = relationship(back_populates="books")
 
 
     def __str__(self):

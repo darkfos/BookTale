@@ -6,7 +6,7 @@ from datetime import datetime
 
 class User(DeclBase):
 
-    __tablename__ = "User"
+    __tablename__ = "user"
 
     username: Mapped[str] = mapped_column(String(120))
     login: Mapped[str] = mapped_column(String(50))
@@ -16,8 +16,8 @@ class User(DeclBase):
     date_update: Mapped[datetime]
 
     #relation
-    reviews: Mapped["Review"] = relationship("Review", back_populates="user")
-    books: Mapped["Book"] = relationship("Book", back_populates="user")
+    reviews: Mapped["Review"] = relationship(back_populates="user", cascade="save-update, merge, delete", passive_deletes=True)
+    books: Mapped["Book"] = relationship(back_populates="user", cascade="save-update, merge, delete", passive_deletes=True)
 
 
     def __str__(self):
@@ -29,4 +29,4 @@ class User(DeclBase):
         )
     
     def __repr__(self):
-        return self.__str__
+        return self.__str__()

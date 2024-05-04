@@ -56,3 +56,8 @@ class GetUserReview(UserBase):
 class UserIsCreated(BaseModel):
 
     user_created: Annotated[bool, Field()]
+
+
+class UserIsDeleted(BaseModel):
+
+    user_deleted: Annotated[bool, Field()]

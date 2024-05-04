@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import select, insert
+from sqlalchemy import select, insert, delete
 from database.models.UserTable import User
 
 
@@ -15,10 +15,19 @@ class UserRepository:
         return False
     
     @staticmethod
-    def create_user(session: Session, new_user_data: User):
+    def create_user(session: Session, new_user_data: User) -> bool:
         try:
-            new_user = insert(new_user_data)
-            session.add(new_user)
+            session.add(new_user_data)
+            session.commit()
+            return True
+        except Exception as ex:
+            return False
+    
+    @staticmethod
+    def delete_user(session: Session, user_id: int) -> bool:
+        try:
+            user = delete(User).where(User.id == user_id)
+            session.execute(user)
             session.commit()
             return True
         except Exception as ex:

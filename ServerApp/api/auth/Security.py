@@ -1,7 +1,6 @@
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from settings import APISettings
-from api.service.UserApiService import UserService
 from typing import Union
 
 
@@ -17,4 +16,5 @@ class SecurityApp:
     def verify_password(self, user_password, hashed_password):
         return self.crypt.verify(user_password, hashed_password)
     
-    def authenticate_user(self, login: str, password: str) -> Union[bool, ]
+    def authenticate_user(self, login: str, password: str) -> Union[bool, bool]:
+        pass
