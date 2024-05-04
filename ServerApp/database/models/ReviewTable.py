@@ -1,10 +1,10 @@
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy import String, Text, BLOB, ForeignKey
-from database.dec_base import DeclarativeBase
+from database.dec_base import DeclBase
 from datetime import datetime
 
 
-class Review(DeclarativeBase):
+class Review(DeclBase):
 
     __tablename__ = "Review"
 

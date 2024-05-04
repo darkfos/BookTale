@@ -1,10 +1,10 @@
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy import String, Text, BLOB
-from database.dec_base import DeclarativeBase
+from sqlalchemy import String, Text, BLOB, Integer
+from database.dec_base import DeclBase
 from datetime import datetime
 
 
-class Book(DeclarativeBase):
+class Book(DeclBase):
 
     __tablename__ = "Book"
 
@@ -22,10 +22,10 @@ class Book(DeclarativeBase):
     def __str__(self):
         return str(
             {
-                f"{k}": v 
+                k: v 
                     for k, v in self.__dict__.items()
             }
         )
     
     def __repr__(self):
-        return self.__str__
+        return self.__str__()

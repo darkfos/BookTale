@@ -39,9 +39,20 @@ class UserDo(BaseModel):
 
 class GetUserBookInformation(UserBase):
 
-    books: Annotated[List[Book], Field()]
+    title: Annotated[str, Field(max_length=120)]
+    description: Annotated[str, Field()]
+    photo_book: Annotated[bytes, Field()]
+    file_data: Annotated[bytes, Field()]
+    id: Annotated[int, Field()]
 
 
 class GetUserReview(UserBase):
 
-    review: Annotated[List[Review], Field()]
+    message: Annotated[str, Field()]
+    id: Annotated[int, Field()]
+    id_user: Annotated[int, Field()]
+
+
+class UserIsCreated(BaseModel):
+
+    user_created: Annotated[bool, Field()]
