@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import select, insert, delete
+from sqlalchemy import select, insert, delete, update
 from database.models.UserTable import User
 from typing import Union
 
@@ -42,3 +42,17 @@ class UserRepository:
         if usr_data:
             return usr_data[0]
         return False
+    
+    @staticmethod
+    def update_photo(session: Session, user_id: int, new_photo: bytes) -> bool:
+        try:
+            stmt = update(User).where(User.id == user_id).values(
+                photo_user = new_photo
+            )
+
+            session.execute(stmt)
+            session.commit()
+
+            return True
+        except Exception as ex:
+            return False

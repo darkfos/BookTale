@@ -62,3 +62,8 @@ class UserIsCreated(BaseModel):
 class UserIsDeleted(BaseModel):
 
     user_deleted: Annotated[bool, Field()]
+
+
+class UserIsUpdated(BaseModel):
+
+    user_updated: Annotated[bool, Field()]

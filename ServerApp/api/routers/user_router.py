@@ -1,8 +1,8 @@
 from api.auth.Security import SecurityApp
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, status, Depends, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
-from api.dto.UserDTO import AddNewUser, UserIsCreated, UserIsDeleted, UserDo, ResponseToken
+from api.dto.UserDTO import AddNewUser, UserIsCreated, UserIsDeleted, UserDo, ResponseToken, UserIsUpdated
 from api.service.UserApiService import UserService
 from sqlalchemy.orm import Session
 from database.db import db_worker
@@ -34,5 +34,21 @@ async def get_information_about_user(
     usr_data: Annotated[UserDo, Depends(SecurityApp().oauth2_scheme)],
     session: Annotated[Session, Depends(db_worker.get_session)]
 ):
-    print(usr_data)
     return await UserService.get_user(session=session, token=usr_data)
+
+
+@user_router.patch("/update-user-photo", status_code=status.HTTP_200_OK, response_model=UserIsUpdated)
+async def update_user_photo(
+    usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
+    session: Annotated[Session, Depends(db_worker.get_session)],
+    new_photo: UploadFile
+) -> UserIsUpdated: 
+    if "image" in str(new_photo.content_type):
+        file = await new_photo.read()
+        update_file: UserIsUpdated = await UserService().update_user_photo(session=session, new_photo=file, usr_token=usr_data)
+        return update_file
+            
+    raise HTTPException(
+        status_code=status.HTTP_406_NOT_ACCEPTABLE,
+        detail="Ожидается фото!"
+    )

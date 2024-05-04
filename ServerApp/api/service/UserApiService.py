@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status
 from api.exception.http_exception_user import http_404_user_not_found
 from sqlalchemy.orm import Session
-from api.dto.UserDTO import AddNewUser, UserIsCreated, UserDo, UserIsDeleted, GetUserInfo
+from api.dto.UserDTO import AddNewUser, UserIsCreated, UserDo, UserIsDeleted, GetUserInfo, UserIsUpdated
 from database.models.UserTable import User
 from database.repository.UserRepository import UserRepository
 from api.auth.Security import SecurityApp
@@ -48,3 +48,12 @@ class UserService:
         return UserIsDeleted(
             user_deleted=result
         )
+    
+    @staticmethod
+    async def update_user_photo(session: Session, new_photo: bytes, usr_token) -> bool:
+        #Decode user
+        user_id: int = (SecurityApp().decode_jwt_token(token_type="access", token=usr_token)).get("user_id")
+        result: bool = UserRepository.update_photo(session=session, user_id=int(user_id), new_photo=new_photo)
+
+        return UserIsUpdated(user_updated=result)
+
