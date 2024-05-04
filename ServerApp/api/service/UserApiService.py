@@ -12,7 +12,7 @@ class UserService:
     async def get_user(session: Session, token: str) -> GetUserInfo:
         user_data_id: int = (SecurityApp().decode_jwt_token(token_type="access", token=token)).get("user_id")
         user_data: User = UserRepository.get_user_info(session=session, user_id=user_data_id)
-
+    
         if user_data:
             return GetUserInfo(
                 username=user_data.username,
@@ -50,10 +50,17 @@ class UserService:
         )
     
     @staticmethod
-    async def update_user_photo(session: Session, new_photo: bytes, usr_token) -> bool:
+    async def update_user_photo(session: Session, new_photo: bytes, usr_token) -> UserIsUpdated:
         #Decode user
         user_id: int = (SecurityApp().decode_jwt_token(token_type="access", token=usr_token)).get("user_id")
         result: bool = UserRepository.update_photo(session=session, user_id=int(user_id), new_photo=new_photo)
 
         return UserIsUpdated(user_updated=result)
 
+    @staticmethod
+    async def update_user_name(session: Session, new_name: str, token: str) -> UserIsUpdated:
+        #Decode user
+        user_id: int = ( SecurityApp().decode_jwt_token(token_type="access", token=token)).get("user_id")
+        result: bool = UserRepository.update_name(session=session, user_id=int(user_id), new_name=new_name)
+
+        return UserIsUpdated(user_updated=result)

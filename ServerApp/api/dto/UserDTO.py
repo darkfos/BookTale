@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Annotated, List
+from typing import Annotated, List, Union
 from datetime import datetime
 from database.models.BookTable import Book
 from database.models.ReviewTable import Review
@@ -9,7 +9,7 @@ from database.models.ReviewTable import Review
 class UserBase(BaseModel):
 
     username: Annotated[str, Field(min_length=4, max_length=120)]
-    photo_user: Annotated[bytes, Field()]
+    photo_user: Annotated[Union[bytes, str], Field()]
 
 
 class AddNewUser(UserBase):

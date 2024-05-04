@@ -56,3 +56,15 @@ class UserRepository:
             return True
         except Exception as ex:
             return False
+    
+    @staticmethod
+    def update_name(session: Session, user_id: int, new_name: str) -> bool:
+        try:
+            stmt = update(User).where(User.id == user_id).values(
+                username = new_name
+            )
+            session.execute(stmt)
+            session.commit()
+            return True
+        except Exception as ex:
+            return False
