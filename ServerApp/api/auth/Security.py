@@ -63,14 +63,15 @@ class SecurityApp:
         except JWTError as jw:
             return http_409_close_create_token
     
-    def encode_jwt_token(self, token_type: Literal["access", "refresh"], token: str):
+    def decode_jwt_token(self, token_type: Literal["access", "refresh"], token: str) -> Union[ResponseToken, dict]:
 
         match token_type:
             case "access":
-                pass
+                #Decode token
+                data: dict = jwt.decode(token=token, key=api_settings.api_key, algorithms=api_settings.algorithm)
+                return data
             case "refresh":
-                print(token)
-                #Encode
+                #Decode
                 data: dict = jwt.decode(token=token, key=api_settings.api_refresh_key, algorithms=api_settings.algorithm)
                 #Create a new token
                 #Creating access token

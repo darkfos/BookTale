@@ -31,13 +31,14 @@ async def auth_user(
         status_code=status.HTTP_201_CREATED,
     )
 
+    result.set_cookie(key="Token", value=token_data.access_token)
     result.set_cookie(key="Refresh-token", value=token_data.refresh_token)
 
     return result
 
 @auth_router.post("/refresh-token", status_code=status.HTTP_200_OK, response_model=ResponseToken)
 async def update_token(data: Request):
-    token_data: ResponseToken = SecurityApp().encode_jwt_token(token_type="refresh", token=data.cookies.get("Refresh-token"))
+    token_data: ResponseToken = SecurityApp().decode_jwt_token(token_type="refresh", token=data.cookies.get("Refresh-token"))
     response = JSONResponse(
         content=token_data.model_dump(),
         status_code=status.HTTP_200_OK)

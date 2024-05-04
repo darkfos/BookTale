@@ -32,5 +32,7 @@ async def delete_user(session: Annotated[Session, Depends(db_worker.get_session)
 @user_router.get("/get-info", status_code=status.HTTP_201_CREATED)
 async def get_information_about_user(
     usr_data: Annotated[UserDo, Depends(SecurityApp().oauth2_scheme)],
+    session: Annotated[Session, Depends(db_worker.get_session)]
 ):
-    return {"message": "success"}
+    print(usr_data)
+    return await UserService.get_user(session=session, token=usr_data)

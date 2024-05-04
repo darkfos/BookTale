@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import select, insert, delete
 from database.models.UserTable import User
+from typing import Union
 
 
 class UserRepository:
@@ -32,3 +33,12 @@ class UserRepository:
             return True
         except Exception as ex:
             return False
+        
+    @staticmethod
+    def get_user_info(session: Session, user_id: int) -> Union[bool, User]:
+        stmt = select(User).where(User.id == user_id)
+        usr_data = ( session.execute(stmt) ).one_or_none()
+
+        if usr_data:
+            return usr_data[0]
+        return False
