@@ -1,3 +1,46 @@
-.navigate_btn > button {
-    background-color: darksalmon;
+.btn_search {
+    background-color: #426B1F;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 10%;
+    height: 35px;
+}
+
+
+header {
+    margin-top: 2%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    width: 70%;
+    margin-left: 40%;
+}
+
+nav > a {
+    list-style: none;
+    text-decoration: none;
+    color: black;
+    margin-right: 3%;
+}
+
+.logo {
+    text-align: left;
+    width: 30%;
+}
+
+.logo > a {
+    list-style: none;
+    text-decoration: none;
+    color: #426B1F;
+    margin-left: 10%;
+    font-size: 32px;
+    font-weight: bold;
 }
