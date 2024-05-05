@@ -31,6 +31,14 @@ nav > a {
     margin-right: 3%;
 }
 
+nav > a:active {
+    color: #AB6B35;
+}
+
+nav > a:hover {
+    color: #AB6B35;
+}
+
 .logo {
     text-align: left;
     width: 30%;
