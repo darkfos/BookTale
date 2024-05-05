@@ -67,3 +67,11 @@ class BookService:
                 creator=book.user.username
             )
         return await http_404_book_not_found()
+
+    @staticmethod
+    async def delete_book(session: Session, book_id: int) -> BookIsDeleted:
+
+        is_deleted: bool = BookRepository.delete_book_by_id(session=session, id=book_id)
+        return BookIsDeleted(
+            book_deleted=is_deleted
+        )

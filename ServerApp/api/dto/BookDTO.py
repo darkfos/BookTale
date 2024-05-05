@@ -28,6 +28,10 @@ class BookIsCreated(BaseModel):
     book_created: Annotated[bool, Field()]
 
 
+class BookIsDeleted(BaseModel):
+    book_deleted: Annotated[bool, Field()]
+
+
 class BookSmallInformation(BaseModel):
 
     title: Annotated[str, Field()]

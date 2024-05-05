@@ -95,3 +95,16 @@ async def information_about_book(
         description=book_data.description,
         creator=book_data.creator
     )
+
+@book_router.delete(
+    path="/delete-book",
+    status_code=status.HTTP_200_OK,
+    response_model=BookIsDeleted
+)
+async def delete_book(
+    session: Annotated[Session, Depends(db_worker.get_session)],
+    usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
+    book_id: int
+) -> BookIsDeleted:
+    
+    return await BookService.delete_book(session=session, book_id=book_id)

@@ -34,3 +34,17 @@ class BookRepository:
         if book:
             return book[0]
         else: return False
+    
+    @staticmethod
+    def delete_book_by_id(session: Session, id: int) -> bool:
+        try:
+            stmt = select(Book).where(Book.id == id)
+            res = (session.execute(stmt)).one_or_none()
+            if res:
+                stmt = delete(Book).where(Book.id == id)
+                session.execute(stmt)
+                session.commit()
+                return True
+            raise ex
+        except Exception as ex:
+            return False
