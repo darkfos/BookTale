@@ -1,5 +1,4 @@
 from typing import Annotated, Union
-from fastapi import UploadFile
 from pydantic import BaseModel, Field 
 
 
@@ -7,8 +6,8 @@ class BookBase(BaseModel):
 
     title: Annotated[str, Field()]
     description: Annotated[str, Field()]
-    photo_book: Annotated[Union[UploadFile, UploadFile.read], Field()]
-    file_data: Annotated[Union[UploadFile, UploadFile.read], Field()]
+    photo_book: Annotated[bytes, Field()]
+    file_data: Annotated[bytes, Field()]
 
 
 class AddBook(BookBase):
