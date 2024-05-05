@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 
 //Local components
 import Header from './components/general/Header';
+import Footer from './components/general/Footer';
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <Fragment>
       <Header />
       <Outlet />
+      <Footer />
     </Fragment>
   );
 }
