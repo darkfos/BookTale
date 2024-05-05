@@ -2,7 +2,7 @@ from api.auth.Security import SecurityApp
 from fastapi import APIRouter, status, Depends, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
-from api.dto.UserDTO import AddNewUser, UserIsCreated, UserIsDeleted, UserDo, ResponseToken, UserIsUpdated, GetUserInfo
+from api.dto.UserDTO import AddNewUser, UserIsCreated, UserIsDeleted, UserDo, ResponseToken, UserIsUpdated, GetUserInfo, UserProfileInfo
 from api.service.UserApiService import UserService
 from sqlalchemy.orm import Session
 from database.db import db_worker
@@ -63,3 +63,11 @@ async def update_user_name(
     new_name: str
 ) -> UserIsUpdated:
     return await UserService().update_user_name(session=session, token=usr_data, new_name=new_name)
+
+
+@user_router.get("/profile-information", status_code=status.HTTP_200_OK, response_model=UserProfileInfo)
+async def user_personal_information(
+    usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
+    session: Annotated[Session, Depends(db_worker.get_session)]
+) -> UserProfileInfo:
+    return await UserService().get_profile_information(session=session, token=usr_data)

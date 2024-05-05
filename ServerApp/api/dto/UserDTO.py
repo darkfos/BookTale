@@ -67,3 +67,8 @@ class UserIsDeleted(BaseModel):
 class UserIsUpdated(BaseModel):
 
     user_updated: Annotated[bool, Field()]
+
+class UserProfileInfo(UserBase):
+    
+    count_books: Annotated[int, Field()]
+    count_reviews: Annotated[int, Field()]

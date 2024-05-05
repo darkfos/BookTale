@@ -1,10 +1,12 @@
 from fastapi import HTTPException, status
 from api.exception.http_exception_user import http_404_user_not_found
 from sqlalchemy.orm import Session
-from api.dto.UserDTO import AddNewUser, UserIsCreated, UserDo, UserIsDeleted, GetUserInfo, UserIsUpdated
+from api.dto.UserDTO import AddNewUser, UserIsCreated, UserDo, UserIsDeleted, GetUserInfo, UserIsUpdated, UserProfileInfo
 from database.models.UserTable import User
 from database.repository.UserRepository import UserRepository
 from api.auth.Security import SecurityApp
+from typing import Union
+
 
 class UserService:
 
@@ -64,3 +66,19 @@ class UserService:
         result: bool = UserRepository.update_name(session=session, user_id=int(user_id), new_name=new_name)
 
         return UserIsUpdated(user_updated=result)
+
+    @staticmethod
+    async def get_profile_information(session: Session, token: str) -> UserProfileInfo:
+        #Decode user
+        user_id: int = ( SecurityApp().decode_jwt_token(token_type="access", token=token)).get("user_id")
+        result: Union[bool, User] = UserRepository.get_all_information(session=session, user_id=user_id)
+
+        if result:
+            return UserProfileInfo(
+                username=result.username,
+                photo_user=str(result.photo_user),
+                count_books=len(result.books),
+                count_reviews=len(result.reviews)
+            )
+        
+        return http_404_user_not_found()

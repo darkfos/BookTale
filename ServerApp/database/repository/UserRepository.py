@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import select, insert, delete, update
 from database.models.UserTable import User
 from typing import Union
@@ -68,3 +68,11 @@ class UserRepository:
             return True
         except Exception as ex:
             return False
+    
+    @staticmethod
+    def get_all_information(session: Session, user_id: int) -> Union[tuple, bool]:
+        stmt = select(User).options(joinedload(User.books), joinedload(User.reviews)).where(User.id == user_id)
+        result = ( session.execute(stmt) ).unique()
+        if result:
+            return result.one()[0]
+        return False
