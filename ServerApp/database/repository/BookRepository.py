@@ -17,10 +17,19 @@ class BookRepository:
         
     @staticmethod
     def get_all_books_usr(session: Session, user_id: int) -> Union[bool, List[Book]]:
-        stmt = select(Book).where(Book.id_user == user_id)
+        stmt = select(Book).where(Book.id == user_id)
         all_books = ( session.execute(stmt) ).all()
 
         if all_books:
             return all_books
         else:
             return False
+    
+    @staticmethod
+    def get_book_by_id(session: Session, id: int) -> Union[bool, Book]:
+        stmt = select(Book).where(Book.id == id)
+        book = ( session.execute(stmt) ).one_or_none()
+
+        if book:
+            return book[0]
+        else: return False

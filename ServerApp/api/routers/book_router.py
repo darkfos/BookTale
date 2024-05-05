@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, status, HTTPException, UploadFile
+from fastapi.responses import FileResponse
 from api.auth.Security import SecurityApp
 from api.dto.BookDTO import *
 from database.db import db_worker
@@ -7,6 +8,8 @@ from api.exception.htpp_exception_book import *
 from api.service.BookApiService import BookService
 from database.repository.BookRepository import BookRepository
 from typing import Union, List, Annotated
+from other.convert_file import get_docx_file
+from database.models.BookTable import Book
 
 
 book_router: APIRouter = APIRouter(
@@ -58,3 +61,19 @@ async def get_all_books_for_user(
     )
 
     return result
+
+
+@book_router.get(
+    path="/download-unique-book",
+    status_code=status.HTTP_200_OK,
+)
+async def download_unique_user_book(
+    session: Annotated[Session, Depends(db_worker.get_session)],
+    usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
+    book_id: int
+):
+    file: Book = await BookService.get_book_by_id_for_download(session=session, token=str(usr_data), book_id=book_id)
+    file_io: str = await get_docx_file(file=file.file_data, file_name=file.title, file_id=file.id)
+    return FileResponse(
+        file_io, filename=file.title, media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )

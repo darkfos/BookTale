@@ -48,3 +48,19 @@ class BookService:
                     for book in all_books
             ]
         return await http_404_book_not_found()
+
+    @staticmethod
+    async def get_book_by_id_for_download(session: Session, token: str, book_id: int) -> GetBook:
+        #Get user_id
+        user_id: int = ( SecurityApp().decode_jwt_token(token_type="access", token=token) ).get("user_id")
+        book: Book = BookRepository.get_book_by_id(session=session, id=book_id)
+
+        if book:
+            return GetBook(
+                title=book.title,
+                description=book.description,
+                photo_book=book.photo_book,
+                file_data=book.file_data,
+                id=book.id
+            )
+        return await http_404_book_not_found()
