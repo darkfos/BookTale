@@ -36,6 +36,7 @@ class BookService:
         #Get user_id
         user_id: int = ( SecurityApp().decode_jwt_token(token_type="access", token=token) ).get("user_id")
         all_books = BookRepository.get_all_books_usr(session=session, user_id=user_id)
+        print(all_books)
         if all_books:
             return [
                 GetBook(
@@ -43,7 +44,8 @@ class BookService:
                     title=book[0].title,
                     description=book[0].description,
                     photo_book=str(book[0].photo_book),
-                    file_data=str(book[0].file_data)
+                    file_data=str(book[0].file_data),
+                    creator=book[0].user.username
                 )
                     for book in all_books
             ]
@@ -61,6 +63,7 @@ class BookService:
                 description=book.description,
                 photo_book=book.photo_book,
                 file_data=book.file_data,
-                id=book.id
+                id=book.id,
+                creator=book.user.username
             )
         return await http_404_book_not_found()

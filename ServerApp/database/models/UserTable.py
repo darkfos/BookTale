@@ -2,6 +2,7 @@ from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy import String, Text, LargeBinary
 from database.dec_base import DeclBase
 from datetime import datetime
+from typing import List
 
 
 class User(DeclBase):
@@ -16,8 +17,8 @@ class User(DeclBase):
     date_update: Mapped[datetime]
 
     #relation
-    reviews: Mapped["Review"] = relationship(back_populates="user", cascade="save-update, merge, delete", passive_deletes=True)
-    books: Mapped["Book"] = relationship(back_populates="user", cascade="save-update, merge, delete", passive_deletes=True)
+    reviews: Mapped[List["Review"]] = relationship(back_populates="user", cascade="save-update, merge, delete", passive_deletes=True)
+    books: Mapped[List["Book"]] = relationship(back_populates="user", cascade="save-update, merge, delete", passive_deletes=True)
 
 
     def __str__(self):

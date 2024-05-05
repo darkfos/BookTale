@@ -1,4 +1,5 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
+from database.models.UserTable import User
 from typing import Union, List
 from sqlalchemy import select, delete, update, insert
 from database.models.BookTable import Book
@@ -17,7 +18,7 @@ class BookRepository:
         
     @staticmethod
     def get_all_books_usr(session: Session, user_id: int) -> Union[bool, List[Book]]:
-        stmt = select(Book).where(Book.id == user_id)
+        stmt = select(Book).options(joinedload(Book.user)).where(Book.id_user == user_id)
         all_books = ( session.execute(stmt) ).all()
 
         if all_books:
@@ -27,7 +28,7 @@ class BookRepository:
     
     @staticmethod
     def get_book_by_id(session: Session, id: int) -> Union[bool, Book]:
-        stmt = select(Book).where(Book.id == id)
+        stmt = select(Book).options(joinedload(Book.user)).where(Book.id == id)
         book = ( session.execute(stmt) ).one_or_none()
 
         if book:

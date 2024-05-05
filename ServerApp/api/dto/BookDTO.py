@@ -8,6 +8,7 @@ class BookBase(BaseModel):
     description: Annotated[str, Field()]
     photo_book: Annotated[Union[bytes, str], Field()]
     file_data: Annotated[Union[bytes, str], Field()]
+    creator: Annotated[str, Field()]
 
 
 class AddBook(BookBase):
@@ -25,3 +26,10 @@ class GetBook(BookBase):
 
 class BookIsCreated(BaseModel):
     book_created: Annotated[bool, Field()]
+
+
+class BookSmallInformation(BaseModel):
+
+    title: Annotated[str, Field()]
+    description: Annotated[str, Field()]
+    creator: Annotated[str, Field()]

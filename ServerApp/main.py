@@ -15,4 +15,4 @@ application.include_router(review_router)
 application.include_router(book_router)
 
 if __name__ == "__main__":
-    uvicorn.run(app=application, host="127.0.0.1", port="8852", workers=True)
+    uvicorn.run(app=application, host="127.0.0.1", port="8952", workers=True)

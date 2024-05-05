@@ -77,3 +77,21 @@ async def download_unique_user_book(
     return FileResponse(
         file_io, filename=file.title, media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     )
+
+@book_router.get(
+    path="/get-information-about-book",
+    status_code=status.HTTP_200_OK,
+    response_model=BookSmallInformation
+)
+async def information_about_book(
+    session: Annotated[Session, Depends(db_worker.get_session)],
+    usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
+    book_id: int
+) -> BookSmallInformation:
+    
+    book_data: GetBook = await BookService.get_book_by_id_for_download(session=session, token=usr_data, book_id=book_id)
+    return BookSmallInformation(
+        title=book_data.title,
+        description=book_data.description,
+        creator=book_data.creator
+    )
