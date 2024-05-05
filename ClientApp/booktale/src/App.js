@@ -2,11 +2,14 @@ import './App.css';
 import {Outlet} from "react-router-dom";
 import { Fragment } from 'react';
 
+//Local components
+import Header from './components/general/Header';
+
 
 function App() {
   return(
     <Fragment>
-      <h2>ПРИВЕТ!</h2>
+      <Header />
       <Outlet />
     </Fragment>
   );
