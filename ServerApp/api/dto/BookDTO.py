@@ -6,8 +6,8 @@ class BookBase(BaseModel):
 
     title: Annotated[str, Field()]
     description: Annotated[str, Field()]
-    photo_book: Annotated[bytes, Field()]
-    file_data: Annotated[bytes, Field()]
+    photo_book: Annotated[Union[bytes, str], Field()]
+    file_data: Annotated[Union[bytes, str], Field()]
 
 
 class AddBook(BookBase):
@@ -20,7 +20,7 @@ class DeleteBook(BaseModel):
 
 
 class GetBook(BookBase):
-    pass
+    id: Annotated[int, Field()]
 
 
 class BookIsCreated(BaseModel):

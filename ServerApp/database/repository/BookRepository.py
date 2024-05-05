@@ -14,3 +14,13 @@ class BookRepository:
             return True
         except Exception as ex:
             return False
+        
+    @staticmethod
+    def get_all_books_usr(session: Session, user_id: int) -> Union[bool, List[Book]]:
+        stmt = select(Book).where(Book.id_user == user_id)
+        all_books = ( session.execute(stmt) ).all()
+
+        if all_books:
+            return all_books
+        else:
+            return False

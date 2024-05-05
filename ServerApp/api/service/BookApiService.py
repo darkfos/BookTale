@@ -26,3 +26,25 @@ class BookService:
         )
 
         return BookIsCreated(book_created=result_create_book)
+    
+    @staticmethod
+    async def get_all_books_for_user(
+        session: Session,
+        token: str
+    ) -> List[GetBook]:
+        
+        #Get user_id
+        user_id: int = ( SecurityApp().decode_jwt_token(token_type="access", token=token) ).get("user_id")
+        all_books = BookRepository.get_all_books_usr(session=session, user_id=user_id)
+        if all_books:
+            return [
+                GetBook(
+                    id=book[0].id,
+                    title=book[0].title,
+                    description=book[0].description,
+                    photo_book=str(book[0].photo_book),
+                    file_data=str(book[0].file_data)
+                )
+                    for book in all_books
+            ]
+        return await http_404_book_not_found()
