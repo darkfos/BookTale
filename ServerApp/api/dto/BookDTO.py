@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Union
 from pydantic import BaseModel, Field 
 
 
@@ -6,8 +6,9 @@ class BookBase(BaseModel):
 
     title: Annotated[str, Field()]
     description: Annotated[str, Field()]
-    photo_book: Annotated[bytes, Field()]
-    file_data: Annotated[bytes, Field()]
+    photo_book: Annotated[Union[bytes, str], Field()]
+    file_data: Annotated[Union[bytes, str], Field()]
+    creator: Annotated[str, Field()]
 
 
 class AddBook(BookBase):
@@ -20,4 +21,19 @@ class DeleteBook(BaseModel):
 
 
 class GetBook(BookBase):
-    pass
+    id: Annotated[int, Field()]
+
+
+class BookIsCreated(BaseModel):
+    book_created: Annotated[bool, Field()]
+
+
+class BookIsDeleted(BaseModel):
+    book_deleted: Annotated[bool, Field()]
+
+
+class BookSmallInformation(BaseModel):
+
+    title: Annotated[str, Field()]
+    description: Annotated[str, Field()]
+    creator: Annotated[str, Field()]

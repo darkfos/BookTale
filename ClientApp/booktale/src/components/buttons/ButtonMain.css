@@ -1,0 +1,14 @@
+.btn-main {
+    background-color: #426B1F;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 15%;
+    transition: all 0.5s;
+    height: 35px;
+}
+
+.btn-main:hover {
+    background-color: #AB6B35;
+}

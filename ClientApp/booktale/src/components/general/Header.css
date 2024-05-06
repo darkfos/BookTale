@@ -1,0 +1,59 @@
+.btn_search {
+    background-color: #426B1F;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 10%;
+    transition: all 0.5s;
+    height: 35px;
+}
+
+.btn_search:hover {
+    background-color: #AB6B35;
+}
+
+
+header {
+    margin-top: 2%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    width: 70%;
+    margin-left: 40%;
+}
+
+nav > a {
+    list-style: none;
+    text-decoration: none;
+    color: black;
+    margin-right: 3%;
+}
+
+nav > a:active {
+    color: #AB6B35;
+}
+
+nav > a:hover {
+    color: #AB6B35;
+}
+
+.logo {
+    text-align: left;
+    width: 30%;
+}
+
+.logo > a {
+    list-style: none;
+    text-decoration: none;
+    color: #426B1F;
+    margin-left: 10%;
+    font-size: 32px;
+    font-weight: bold;
+}

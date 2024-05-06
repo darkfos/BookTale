@@ -1,7 +1,7 @@
 from fastapi import status, HTTPException
 
 
-async def http_400_dont_create_user():
+def http_400_dont_create_user():
     
     raise HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST,
@@ -9,7 +9,7 @@ async def http_400_dont_create_user():
     )
 
 
-async def http_404_user_not_found():
+def http_404_user_not_found():
 
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
@@ -17,7 +17,7 @@ async def http_404_user_not_found():
     )
 
 
-async def http_400_dont_update_user_info():
+def http_400_dont_update_user_info():
 
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
@@ -25,7 +25,7 @@ async def http_400_dont_update_user_info():
     )
 
 
-async def http_400_dont_delete_user():
+def http_400_dont_delete_user():
 
     raise HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST,
@@ -33,7 +33,7 @@ async def http_400_dont_delete_user():
     )
 
 
-async def http_400_dont_right_token():
+def http_400_dont_right_token():
 
     raise HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST,
@@ -41,9 +41,26 @@ async def http_400_dont_right_token():
     )
 
 
-async def http_400_user_not_authorizated():
+def http_400_user_not_authorizated():
 
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Вы не авторизированы в систеvе"
+        detail="Вы не авторизированы в систеvе",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
+
+
+def http_400_dont_right_password():
+
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Неправильный пароль"
+    )
+
+
+def http_409_close_create_token():
+
+    raise HTTPException(
+        status_code=status.HTTP_409_CONFLICT,
+        detail="Не удалось создать токены"
     )

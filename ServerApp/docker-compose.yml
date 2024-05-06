@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  db:
+    container_name: db
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "booktable"
+      POSTGRES_USER: "darkfos82"
+      POSTGRES_PASSWORD: "chaiki45"
+    ports:
+      - "8899:8899"
+    restart: always
+    networks:
+      - booktable_network
+
+networks:
+  booktable_network:
+    driver: bridge

@@ -19,6 +19,13 @@ fileConfig(config.config_file_name)
 # target_metadata = mymodel.Base.metadata
 from database.dec_base import DeclBase
 from settings import db_settings
+
+#Tables
+from database.models.BookTable import Book
+from database.models.ReviewTable import Review
+from database.models.UserTable import User
+
+#Creating tables
 target_metadata = DeclBase.metadata
 
 # other values from the config, defined by the needs of env.py,

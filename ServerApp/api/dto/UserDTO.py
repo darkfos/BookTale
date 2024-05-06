@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Annotated, List
+from typing import Annotated, List, Union
 from datetime import datetime
 from database.models.BookTable import Book
 from database.models.ReviewTable import Review
@@ -9,7 +9,7 @@ from database.models.ReviewTable import Review
 class UserBase(BaseModel):
 
     username: Annotated[str, Field(min_length=4, max_length=120)]
-    photo_user: Annotated[bytes, Field()]
+    photo_user: Annotated[Union[bytes, str], Field()]
 
 
 class AddNewUser(UserBase):
@@ -28,7 +28,8 @@ class GetUserInfo(UserBase):
 
 class ResponseToken(BaseModel):
 
-    token: Annotated[str, Field()]
+    access_token: Annotated[str, Field()]
+    token_type: Annotated[str, Field()]
     refresh_token: Annotated[str, Field()]
 
 
@@ -39,9 +40,35 @@ class UserDo(BaseModel):
 
 class GetUserBookInformation(UserBase):
 
-    books: Annotated[List[Book], Field()]
+    title: Annotated[str, Field(max_length=120)]
+    description: Annotated[str, Field()]
+    photo_book: Annotated[bytes, Field()]
+    file_data: Annotated[bytes, Field()]
+    id: Annotated[int, Field()]
 
 
 class GetUserReview(UserBase):
 
-    review: Annotated[List[Review], Field()]
+    message: Annotated[str, Field()]
+    id: Annotated[int, Field()]
+    id_user: Annotated[int, Field()]
+
+
+class UserIsCreated(BaseModel):
+
+    user_created: Annotated[bool, Field()]
+
+
+class UserIsDeleted(BaseModel):
+
+    user_deleted: Annotated[bool, Field()]
+
+
+class UserIsUpdated(BaseModel):
+
+    user_updated: Annotated[bool, Field()]
+
+class UserProfileInfo(UserBase):
+    
+    count_books: Annotated[int, Field()]
+    count_reviews: Annotated[int, Field()]

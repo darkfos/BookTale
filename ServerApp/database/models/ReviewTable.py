@@ -1,18 +1,18 @@
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy import String, Text, BLOB, ForeignKey
-from database.dec_base import DeclarativeBase
+from database.dec_base import DeclBase
 from datetime import datetime
 
 
-class Review(DeclarativeBase):
+class Review(DeclBase):
 
-    __tablename__ = "Review"
+    __tablename__ = "review"
 
     message: Mapped[str] = mapped_column(String(350))
-    id_user: Mapped[int] = mapped_column(ForeignKey("User.id"))
+    id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
     
     #relation to user
-    user: Mapped["User"] = relationship("User", back_populates="reviews")
+    user: Mapped["User"] = relationship(back_populates="reviews")
 
 
     def __str__(self):
@@ -24,4 +24,4 @@ class Review(DeclarativeBase):
         )
     
     def __repr__(self):
-        return self.__str__
+        return self.__str__()
