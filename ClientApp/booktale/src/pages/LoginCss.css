@@ -1,0 +1,42 @@
+.form-auth-user {
+    margin: auto;
+    width: 40%;
+    border: 1px solid black;
+    margin-top: 20%;
+    margin-bottom: 20%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 2%;
+}
+
+h2 {
+    padding-top: 2%;
+    margin: auto;
+}
+
+.form-auth-user > input {
+    padding: 10px;
+    border: 1px solid #426B1F;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.form-auth-user > input:focus {
+    outline: #ffc400;
+}
+
+.btn-form {
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-form > button {
+    margin-right: 20px;
+}

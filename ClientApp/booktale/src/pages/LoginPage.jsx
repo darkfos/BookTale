@@ -4,6 +4,7 @@ import "../components/buttons/ButtonMain.css";
 import { useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
+import "./LoginCss.css";
 
 export default function Login() {
 
@@ -35,7 +36,8 @@ export default function Login() {
 
     return (
         <Fragment>
-            <form action="" onSubmit={fetchAuthUser}>
+            <form action="" onSubmit={fetchAuthUser} className="form-auth-user">
+                <h2>Авторизация</h2>
                 <input type="text" value={login} onChange={
                     (event) => {
                         setLogin(event.target.value)
@@ -46,8 +48,10 @@ export default function Login() {
                         setPassword(event.target.value)
                     }
                 } placeholder="Ваш пароль"/>
-                <button type="submit" className="btn-main">Войти</button>
-                <RegisterButton text="Регистрация"/>
+                <div className="btn-form">
+                    <button type="submit" className="btn-main">Войти</button>
+                    <RegisterButton text="Регистрация"/>
+                </div>
             </form>
         </Fragment>
     )
