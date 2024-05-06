@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Outlet} from "react-router-dom";
 import "./Header.css";
 
 export default function Header() {
@@ -18,6 +18,7 @@ export default function Header() {
                     navigate_site("/search");
                 }} className="btn_search">Поиск</button>
             </nav>
+            <Outlet />
         </header>
     )
 }

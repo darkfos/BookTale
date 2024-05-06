@@ -8,13 +8,13 @@ import Footer from './components/general/Footer';
 
 
 //For auth user
-import Userfront, {
-  SignupForm,
-  LoginForm,
-  PasswordResetForm
-} from "@userfront/toolkit/react";
+// import Userfront, {
+//   SignupForm,
+//   LoginForm,
+//   PasswordResetForm
+// } from "@userfront/toolkit/react";
 
-Userfront.init("demo1234");
+// Userfront.init("demo1234");
 
 function App() {
   return(

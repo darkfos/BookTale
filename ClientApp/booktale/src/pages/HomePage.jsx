@@ -4,6 +4,7 @@ import ButtonMain from "../components/buttons/ButtonMainPage";
 import img_main_1 from "../static/main_photo_1.png";
 import img_main_2 from "../static/main_photo_2.png";
 import { Fragment } from "react";
+import {Outlet} from "react-router-dom";
 
 //Main components for page
 import Header from "../components/general/Header";
@@ -50,6 +51,7 @@ export default function Home() {
                 </div>
             </main>
             <Footer />
+            <Outlet />
         </Fragment>
         )
 }
