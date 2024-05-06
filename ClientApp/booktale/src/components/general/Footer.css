@@ -2,8 +2,9 @@
 footer {
     background-color: #426B1F;
     width: 100%;
-    position: absolute; /* Подвал как приклеенный */
     bottom: 0;
+    margin-top: 20%;
+    padding-bottom: 20px;
 }
 
 .top-block {

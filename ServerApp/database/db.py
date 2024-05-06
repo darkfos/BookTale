@@ -17,8 +17,4 @@ class Database:
     def create_all_tables(self):
         DeclBase.metadata.create_all(bind=self.engine)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/main
 db_worker: Database = Database()
