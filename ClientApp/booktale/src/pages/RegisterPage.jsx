@@ -11,31 +11,32 @@ import "./LoginCss.css";
 export default function Register() {
     const [username, setUserName] = useState("");
     const [login, setLogin] = useState("");
+    const [userphoto, setPhoto] = useState(null);
     const [errorMessage, setError] = useState(null);
     const [pass, setPassword] = useState("");
     const [apiResponse, apiSetResponse] = useState("");
 
     const navigate = useNavigate();
 
-    const DataAuthUser = new URLSearchParams();
+    const data = new URLSearchParams();
 
     const fetchAuthUser = async (event) => {
         try {
             event.preventDefault();
 
-            if (pass.length > 4 && login.length > 4) {
+            if (pass.length > 4 && login.length > 4 && userphoto) {
                 const responseAPI = await api.post("/user/registration", {
                     username: username,
-                    photo_user: "",
+                    photo_user: userphoto,
                     login: login,
                     hasshed_password: pass,
-                    date_create: "2024-05-06T22:05:41.960374",
-                    date_update: "2024-05-06T22:05:41.960445"
+                    date_create: new Date(),
+                    date_update: new Date()
                 });
                 apiSetResponse(responseAPI.status);
                 setError(null);
                 if (apiResponse == "201") {
-                    navigate("/home");
+                    navigate("/login");
                 }
             } else {
                 setError("Некорректные данные для регистрации!")
@@ -51,9 +52,11 @@ export default function Register() {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const arrayBuffer = e.target.result;
-                const bytes = new Uint8Array(arrayBuffer);
+                let byteArray = new Uint8Array(arrayBuffer);
+                // Преобразование массива байтов в строку base64
+                let base64String = btoa(String.fromCharCode.apply(null, byteArray)).toString();
+                setPhoto(base64String);
                 setError(null);
-                console.log(bytes);
             };
             reader.readAsArrayBuffer(file);
         } else {
