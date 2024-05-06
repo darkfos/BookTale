@@ -1,0 +1,26 @@
+.btn-my-posts {
+    background-color: #AB6B35;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 15%;
+    transition: all 0.5s;
+    height: 40px;
+}
+
+.btn-my-posts:hover{
+    background-color: #426B1F;
+}
+
+.btn-library{
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.btn-library > button {
+    margin: 0 5px;
+}
