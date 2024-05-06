@@ -1,23 +1,32 @@
 import RegisterButton from "../components/buttons/ButtonForRegister";
 import LoginButton from "../components/buttons/LoginButton";
+import "../components/buttons/ButtonMain.css";
 import { useState, Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api";
 
 export default function Login() {
 
     const [login, setLogin] = useState("");
-    const [password, setPassword] = useState("");
-    const [apiResponse, apiSetResponse] = useState({
-        status_code: ""
-    });
+    const [pass, setPassword] = useState("");
+    const [apiResponse, apiSetResponse] = useState("");
 
-    const fetchAuthUser = async () => {
+    const navigate = useNavigate();
+
+    const DataAuthUser = new URLSearchParams();
+
+    const fetchAuthUser = async (event) => {
         try {
-            const responseAPI = await api.post("/auth/oauth2", {
-                username: login,
-                password: password
-            });
-            apiSetResponse(responseAPI.data);
+            DataAuthUser.append("username", login);
+            DataAuthUser.append("password", pass);
+
+            event.preventDefault();
+            const responseAPI = await api.post("/auth/oauth2", DataAuthUser.toString());
+            apiSetResponse(responseAPI.status);
+            
+            if (apiResponse == "201") {
+                navigate("/home");
+            }
         } catch (error) {
             console.log(error);
         }
@@ -26,18 +35,18 @@ export default function Login() {
 
     return (
         <Fragment>
-            <form action="">
+            <form action="" onSubmit={fetchAuthUser}>
                 <input type="text" value={login} onChange={
                     (event) => {
                         setLogin(event.target.value)
                     }
                 } placeholder="Ваш логин"/>
-                <input type="password" value={password} onChange={
+                <input type="password" value={pass} onChange={
                     (event) => {
                         setPassword(event.target.value)
                     }
                 } placeholder="Ваш пароль"/>
-                <LoginButton text="Войти" onClick={fetchAuthUser}/>
+                <button type="submit" className="btn-main">Войти</button>
                 <RegisterButton text="Регистрация"/>
             </form>
         </Fragment>

@@ -8,6 +8,6 @@ export default function LoginButton(props) {
     const navigate_to_register_page = useNavigate();
 
     return (
-        <button className="btn-main">{props.text}</button>
+        <button className="btn-main" onClick={props.auth_reaction}>{props.text}</button>
     )
 }
