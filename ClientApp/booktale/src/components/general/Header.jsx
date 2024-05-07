@@ -19,25 +19,29 @@ export default function Header() {
                 <Link to="/home" onClick={() => {
                     dispatch(setUser({
                         login: login,
-                        token: token
+                        token: token,
+                        refresh_token: refresh_token,
                     }));
                 }}>Главная</Link>
                 <Link to="/library" onClick={() => {
                     dispatch(setUser({
                         login: login,
-                        token: token
+                        token: token,
+                        refresh_token: refresh_token,
                     }));
                 }}>Библиотека</Link>
                 <Link to="/reviews" onClick={() => {
                     dispatch(setUser({
                         login: login,
-                        token: token
+                        token: token,
+                        refresh_token: refresh_token,
                     }));
                 }}>Отзывы</Link>
                 <Link to="/profile" onClick={() => {
                     dispatch(setUser({
                         login: login,
-                        token: token
+                        token: token,
+                        refresh_token: refresh_token,
                     }));
                 }}>Мой профиль</Link>
                 <button onClick={() => {
