@@ -2,6 +2,7 @@ import "./Footer.css";
 import vk_image from "../../static/vk.png";
 import wh_image from "../../static/whatsapp.png";
 import inst_image from "../../static/instagram.png";
+import { Link } from "react-router-dom";
 
 
 export default function Footer() {
@@ -11,10 +12,10 @@ export default function Footer() {
                 <div className="left-block">
                     <h2>Другое</h2>
                     <nav>
-                        <a href="/">О нас</a>
-                        <a href="/">Политика конфиденциальности</a>
-                        <a href="/">Разработчики</a>
-                        <a href="/">Права пользования</a>
+                        <Link to="/home">О нас</Link>
+                        <Link to="/home">Политика конфиденциальности</Link>
+                        <Link to="/home">Разработчики</Link>
+                        <Link to="/home">Права пользования</Link>
                     </nav>
                 </div>
                 <div className="right-block">
