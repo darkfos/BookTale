@@ -1,28 +1,21 @@
-import './App.css';
-import {Outlet, Navigate} from "react-router-dom";
-import { Fragment } from 'react';
-
-//Local components
-import Header from './components/general/Header';
-import Footer from './components/general/Footer';
-
-
-//For auth user
-// import Userfront, {
-//   SignupForm,
-//   LoginForm,
-//   PasswordResetForm
-// } from "@userfront/toolkit/react";
-
-// Userfront.init("demo1234");
+// App.js
+import {Fragment, useState} from 'react';
+import {BrowserRouter as Router, Route, Redirect, Outlet, Navigate} from 'react-router-dom';
+import Login from './pages/LoginPage';
+import { useDispatch } from 'react-redux';
+import useAuthUser from "./hooks/use-auth.js"
 
 function App() {
-  return(
+  return useAuthUser ? (
     <Fragment>
       <Outlet />
-      <Navigate to="/login"/>
     </Fragment>
-  );
+  ) : (
+    <Fragment>
+      <Navigate to="/login" />
+      <Outlet />
+    </Fragment>
+  )
 }
 
 export default App;

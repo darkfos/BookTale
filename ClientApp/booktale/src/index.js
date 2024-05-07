@@ -14,7 +14,7 @@ import Profile from './pages/ProfilePage';
 import Reviews from './pages/ReviewsPage';
 import Login from './pages/LoginPage';
 import Register from './pages/RegisterPage';
-import {store} from "./store/index";
+import {store} from "./store/index.js";
 
 
 const router = createBrowserRouter([

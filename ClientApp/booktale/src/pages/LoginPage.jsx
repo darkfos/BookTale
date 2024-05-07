@@ -1,9 +1,10 @@
 import RegisterButton from "../components/buttons/ButtonForRegister";
-import LoginButton from "../components/buttons/LoginButton";
 import "../components/buttons/ButtonMain.css";
 import { useState, Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
+import {setUser} from "../store/slices.js"
 import api from "../api";
+import { useDispatch } from "react-redux";
 import "./LoginCss.css";
 
 export default function Login() {
@@ -15,6 +16,7 @@ export default function Login() {
     const navigate = useNavigate();
 
     const DataAuthUser = new URLSearchParams();
+    const dispatch = useDispatch();
 
     const fetchAuthUser = async (event) => {
         try {
@@ -25,7 +27,17 @@ export default function Login() {
             const responseAPI = await api.post("/auth/oauth2", DataAuthUser.toString());
             apiSetResponse(responseAPI.status);
             
+            
             if (apiResponse == "201") {
+                // Получение конкретного cookie
+                const specificCookie = document.cookie.split(';').find(item => item.includes('access_token='));
+
+                // Парсинг данных из cookie
+                const cookieData = specificCookie.split('=')[1];
+                dispatch(setUser({
+                    login: login,
+                    token: cookieData
+                }));
                 navigate("/home");
             }
         } catch (error) {
@@ -53,6 +65,7 @@ export default function Login() {
                     <RegisterButton text="Регистрация"/>
                 </div>
             </form>
+            <Outlet />
         </Fragment>
     )
 }
