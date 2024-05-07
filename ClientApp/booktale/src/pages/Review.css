@@ -14,4 +14,23 @@
     justify-content: center;
 }
 
+.message_from_user {
+    resize: vertical;
+    width: 100%;
+    border: 1px solid #426B1F;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+
+.create_form_review{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.create_form_review > form {
+    width: 100%;
+    text-align: center;
+}
 
