@@ -6,6 +6,7 @@
 .btn-profile {
     display: grid;
     gap: 10px;
+    width: 100%;
 }
 
 .btn-profile-books {
@@ -17,4 +18,59 @@
 .btn-profile-books > button {
     margin-right: 5%;
     width: 20%;
+}
+
+.grn-text {
+    color: #426B1F;
+}
+
+.left-profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 35%;
+    margin-top: -10%;
+}
+
+.btn-profile > button {
+    width: 100%;
+}
+
+.left-profile-info > img {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100%;
+    height: 35%; 
+}
+
+.delBtn {
+    background-color: #f39e00;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 15%;
+    transition: all 0.5s;
+    height: 40px;
+}
+
+.delBtn:hover {
+    background-color: #fd0000;
+}
+
+.leaveBtn{
+    background-color: #df8600;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 15%;
+    transition: all 0.5s;
+    height: 40px; 
+}
+
+.leaveBtn:hover {
+    background-color: #ff5e00;
+    color: black;
 }
