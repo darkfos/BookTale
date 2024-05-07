@@ -1,0 +1,20 @@
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.btn-profile {
+    display: grid;
+    gap: 10px;
+}
+
+.btn-profile-books {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.btn-profile-books > button {
+    margin-right: 5%;
+    width: 20%;
+}
