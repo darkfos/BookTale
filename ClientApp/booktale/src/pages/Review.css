@@ -1,0 +1,17 @@
+.img-review {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 15%;
+    height: 40%;
+}
+
+.header-review {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+}
+
+
