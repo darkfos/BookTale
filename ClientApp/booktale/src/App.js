@@ -6,7 +6,11 @@ import { useDispatch } from 'react-redux';
 import useAuthUser from "./hooks/use-auth.js"
 
 function App() {
-  return useAuthUser ? (
+
+  const {isAuth, login} = useAuthUser();
+
+  console.log(isAuth, login);
+  return isAuth ? (
     <Fragment>
       <Outlet />
     </Fragment>

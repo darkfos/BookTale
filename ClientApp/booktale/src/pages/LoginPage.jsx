@@ -29,14 +29,10 @@ export default function Login() {
             
             
             if (apiResponse == "201") {
-                // Получение конкретного cookie
-                const specificCookie = document.cookie.split(';').find(item => item.includes('access_token='));
-
-                // Парсинг данных из cookie
-                const cookieData = specificCookie.split('=')[1];
+                console.log("hgome");
                 dispatch(setUser({
                     login: login,
-                    token: cookieData
+                    token: "sdasdasd",
                 }));
                 navigate("/home");
             }

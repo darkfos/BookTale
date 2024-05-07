@@ -1,8 +1,15 @@
-import {useNavigate, Outlet} from "react-router-dom";
+import {useNavigate, Outlet, Link} from "react-router-dom";
+import useAuthUser from "../../hooks/use-auth";
+import {useDispatch} from "react-redux";
+import {setUser} from "../../store/slices";
 import "./Header.css";
 
 export default function Header() {
     const navigate_site = useNavigate();
+    const {isAuth, login, token} = useAuthUser();
+    const dispatch = useDispatch();
+
+    console.log(login, token);
 
     return (
         <header>
@@ -10,10 +17,30 @@ export default function Header() {
                 <a href="/">BookTale</a>
             </div>
             <nav className="">
-                <a href="/home">Главная</a>
-                <a href="/library">Библиотека</a>
-                <a href="/reviews">Отзывы</a>
-                <a href="/profile">Мой профиль</a>
+                <Link to="/home" onClick={() => {
+                    dispatch(setUser({
+                        login: login,
+                        token: token
+                    }));
+                }}>Главная</Link>
+                <Link to="/library" onClick={() => {
+                    dispatch(setUser({
+                        login: login,
+                        token: token
+                    }));
+                }}>Библиотека</Link>
+                <Link to="/reviews" onClick={() => {
+                    dispatch(setUser({
+                        login: login,
+                        token: token
+                    }));
+                }}>Отзывы</Link>
+                <Link to="/profile" onClick={() => {
+                    dispatch(setUser({
+                        login: login,
+                        token: token
+                    }));
+                }}>Мой профиль</Link>
                 <button onClick={() => {
                     navigate_site("/search");
                 }} className="btn_search">Поиск</button>

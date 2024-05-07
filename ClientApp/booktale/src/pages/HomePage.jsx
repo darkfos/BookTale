@@ -51,7 +51,6 @@ export default function Home() {
                 </div>
             </main>
             <Footer />
-            <Outlet />
         </Fragment>
         )
 }
