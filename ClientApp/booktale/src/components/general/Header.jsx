@@ -6,10 +6,9 @@ import "./Header.css";
 
 export default function Header() {
     const navigate_site = useNavigate();
-    const {isAuth, login, token} = useAuthUser();
+    const {isAuth, login, token, refresh_token} = useAuthUser();
     const dispatch = useDispatch();
 
-    console.log(login, token);
 
     return (
         <header>

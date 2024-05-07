@@ -29,10 +29,10 @@ export default function Login() {
             
             
             if (apiResponse == "201") {
-                console.log("hgome");
                 dispatch(setUser({
                     login: login,
-                    token: "sdasdasd",
+                    token: responseAPI.data.access_token,
+                    refresh_token: responseAPI.data.refresh_token
                 }));
                 navigate("/home");
             }
