@@ -12,3 +12,36 @@
 .btn-main:hover {
     background-color: #AB6B35;
 }
+
+.btn-create-book {
+    background-color: #426B1F;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 20%;
+    transition: all 0.5s;
+    height: 40px;
+}
+
+
+.btn-create-book:hover {
+    background-color: #AB6B35;
+}
+
+
+.btn-create-photo {
+    background-color: #AB6B35;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 20%;
+    transition: all 0.5s;
+    height: 40px;
+}
+
+
+.btn-create-photo:hover {
+    background-color: #426B1F;
+}

@@ -1,0 +1,19 @@
+
+.createBook{
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr;
+    width: 50%;
+    gap: 10%;
+}
+
+
+.createBook > input, textarea {
+    padding: 20px;
+    border: 2px solid #426B1F;
+    border-radius: 30px;
+}
+
+.createBook > textarea {
+    resize: vertical;
+}
