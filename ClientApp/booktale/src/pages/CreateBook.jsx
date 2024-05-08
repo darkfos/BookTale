@@ -6,6 +6,7 @@ import Footer from "../components/general/Footer";
 import CreateBook from "../components/buttons/ButtonCreateBook";
 import "./PagesCss.css";
 import "./createBook.css";
+import "../components/buttons/ButtonMain.css";
 
 
 
@@ -23,8 +24,11 @@ export default function MyBooks() {
                     <label for="description">Описание вашей книги</label>
                     <textarea name="" id="description" placeholder="Описание"></textarea>
                     <div className="btn-form">
-                        <CreateBook text_1="Загрузить файл" text_2="Загрузить фотографию" page_1="/home" page_2="/home"/>
+                        <CreateBook text_1="Загрузить файл" text_2="Загрузить фотографию"/>
                     </div>
+                    <br />
+                    <br />
+                    <button type="submit" className="btn-create-book" value='Создать'>Создать</button>
                 </form>
             </main>
             <Footer />
