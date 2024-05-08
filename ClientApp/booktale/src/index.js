@@ -14,6 +14,8 @@ import Profile from './pages/ProfilePage';
 import Reviews from './pages/ReviewsPage';
 import Login from './pages/LoginPage';
 import Register from './pages/RegisterPage';
+import CreateBook from './pages/CreateBook.jsx';
+import MyBooks from './pages/MyBooks.jsx';
 import {store} from "./store/index.js";
 
 
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
       {
         path: "/reviews",
         element: <Reviews />
+      },
+      {
+        path: "/create_new_book",
+        element: <CreateBook />
+      },
+      {
+        path: "/my_books",
+        element: <MyBooks />
       }
     ]
   }

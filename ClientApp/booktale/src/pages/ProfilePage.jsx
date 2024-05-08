@@ -106,8 +106,8 @@ export default function Profile() {
                     <div className="body-right-footer">
                         <h3>Мои книги</h3>
                         <div className="btn-profile-books">
-                            <BtnProfile text="Добавить книгу" />
-                            <BtnProfile text="Мои книги" />
+                            <BtnProfile text="Добавить книгу" navigate_page="/create_new_book"/>
+                            <BtnProfile text="Мои книги" navigate_page="/my_books"/>
                         </div>
                     </div>
                 </div>
