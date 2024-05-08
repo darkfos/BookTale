@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from database.repository.ReviewRepository import ReviewRepository
 from api.exception.http_exception_review import *
 from api.auth.Security import SecurityApp
-from api.dto.ReviewDTO import AddReview, ReviewIsCreated, ReviewBase, ReviewData, ReviewIsDeleted
+from api.dto.ReviewDTO import AddReview, ReviewIsCreated, ReviewBase, ReviewData, ReviewIsDeleted, RandomReview
 from database.models.ReviewTable import Review
 from typing import List, Union
 
@@ -65,3 +65,17 @@ class ReviewService:
             )
         
         return await http_404_review_not_found()
+    
+    @staticmethod
+    async def get_random(
+        session: Session,
+        token: str
+    ) -> RandomReview:
+        #user_id: int = int( (SecurityApp().decode_jwt_token(token_type="access", token=token)).get("user_id") )
+        result: Review = ReviewRepository.get_random_review(session=session)
+
+        return RandomReview(
+            message=result.message,
+            user_photo=str(result.user.photo_user),
+            username=result.user.username
+        )

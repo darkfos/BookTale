@@ -9,7 +9,7 @@ from database.models.ReviewTable import Review
 class UserBase(BaseModel):
 
     username: Annotated[str, Field(min_length=4, max_length=120)]
-    photo_user: Annotated[Union[bytes, str], Field()]
+    photo_user: Annotated[bytes, Field()]
 
 
 class AddNewUser(UserBase):

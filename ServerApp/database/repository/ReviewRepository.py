@@ -1,8 +1,9 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import select, delete
 from database.models.ReviewTable import Review
 from typing import Union
 from api.dto.ReviewDTO import ReviewIsDeleted
+from random import choice
 
 
 class ReviewRepository:
@@ -48,3 +49,18 @@ class ReviewRepository:
             raise ex
         except Exception as ex:
             return False
+        
+    @staticmethod
+    def get_random_review(
+        session: Session
+    ) -> tuple:
+        
+        stmt = select(Review).options(
+            joinedload(Review.user)
+        )
+        result = ( session.execute(stmt) ).all()
+
+        random_review =  choice(result)
+
+        return random_review[0]
+        

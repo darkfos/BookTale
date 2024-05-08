@@ -72,7 +72,6 @@ class UserService:
         #Decode user
         user_id: int = ( SecurityApp().decode_jwt_token(token_type="access", token=token)).get("user_id")
         result: Union[bool, User] = UserRepository.get_all_information(session=session, user_id=user_id)
-
         if result:
             return UserProfileInfo(
                 username=result.username,

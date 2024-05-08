@@ -47,3 +47,11 @@ async def get_review(
     review_id: int
 ) -> ReviewData:
     return await ReviewService.get_by_id(session=session, review_id=review_id)
+
+
+@review_router.get("/random-review", status_code=status.HTTP_200_OK, response_model=RandomReview)
+async def get_random_review(
+    session: Annotated[Session, Depends(db_worker.get_session)],
+    usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)]
+) -> RandomReview:
+    return await ReviewService.get_random(session=session, token=usr_data)

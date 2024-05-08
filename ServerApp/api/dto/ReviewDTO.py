@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Annotated, List
+from typing import Annotated, List, Union
 
 
 class ReviewBase(BaseModel):
@@ -28,3 +28,8 @@ class ReviewIsDeleted(BaseModel):
 class ReviewData(ReviewBase):
 
     id: Annotated[int, Field()]
+
+class RandomReview(ReviewBase):
+
+    user_photo: Annotated[Union[bytes, str], Field()]
+    username: Annotated[str, Field()]

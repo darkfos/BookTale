@@ -22,6 +22,7 @@ class UserRepository:
             session.commit()
             return True
         except Exception as ex:
+            print(ex)
             return False
     
     @staticmethod

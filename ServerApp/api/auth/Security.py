@@ -61,35 +61,42 @@ class SecurityApp:
             )
         
         except JWTError as jw:
-            return http_409_close_create_token
+            return http_409_close_create_token()
     
     def decode_jwt_token(self, token_type: Literal["access", "refresh"], token: str) -> Union[ResponseToken, dict]:
 
         match token_type:
             case "access":
                 #Decode token
-                data: dict = jwt.decode(token=token, key=api_settings.api_key, algorithms=api_settings.algorithm)
-                return data
+                try:
+                    data: dict = jwt.decode(token=token, key=api_settings.api_key, algorithms=api_settings.algorithm)
+                    return data
+                except JWTError as j:
+                    return http_409_close_create_token()
             case "refresh":
                 #Decode
-                data: dict = jwt.decode(token=token, key=api_settings.api_refresh_key, algorithms=api_settings.algorithm)
-                #Create a new token
-                #Creating access token
-                jwt_access_token = dict(user_login=data.get('user_login'), user_password=data.get('user_password'), user_id=data.get('id_user'))
-                jwt_access_token.update({"exp": ( datetime.utcnow() + timedelta(minutes=api_settings.api_time) ) })
+                try:
+                    data: dict = jwt.decode(token=token, key=api_settings.api_refresh_key, algorithms=api_settings.algorithm)
+                    #Create a new token
+                    #Creating access token
+                    jwt_access_token = dict(user_login=data.get('user_login'), user_password=data.get('user_password'), user_id=data.get('id_user'))
+                    jwt_access_token.update({"exp": ( datetime.utcnow() + timedelta(minutes=api_settings.api_time) ) })
 
-                #Creating refresh token
-                jwt_refresh_token = dict(user_login=data.get('user_login'), user_password=data.get('user_password'), user_id=data.get('id_user'))
-                jwt_refresh_token.update({"exp": ( datetime.utcnow() + timedelta(days=api_settings.api_refresh_time) ) })
+                    #Creating refresh token
+                    jwt_refresh_token = dict(user_login=data.get('user_login'), user_password=data.get('user_password'), user_id=data.get('id_user'))
+                    jwt_refresh_token.update({"exp": ( datetime.utcnow() + timedelta(days=api_settings.api_refresh_time) ) })
 
-                #Result tokens
-                jwt_access_token = jwt.encode(jwt_access_token, api_settings.api_key, algorithm=api_settings.algorithm)
-                jwt_refresh_token = jwt.encode(jwt_refresh_token, api_settings.api_refresh_key, algorithm=api_settings.algorithm)
+                    #Result tokens
+                    jwt_access_token = jwt.encode(jwt_access_token, api_settings.api_key, algorithm=api_settings.algorithm)
+                    jwt_refresh_token = jwt.encode(jwt_refresh_token, api_settings.api_refresh_key, algorithm=api_settings.algorithm)
+                    
+                    return ResponseToken(
+                        access_token=jwt_access_token,
+                        refresh_token=jwt_refresh_token,
+                        token_type="bearer"
+                    )
+                except JWTError as j:
+                    return http_409_close_create_token()
                 
-                return ResponseToken(
-                    access_token=jwt_access_token,
-                    refresh_token=jwt_refresh_token,
-                    token_type="bearer"
-                )
             case _:
                 return http_400_dont_right_token

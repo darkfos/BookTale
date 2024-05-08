@@ -4,7 +4,7 @@ from api.auth.Security import SecurityApp
 from api.dto.BookDTO import *
 from database.db import db_worker
 from sqlalchemy.orm import Session
-from api.exception.htpp_exception_book import *
+from api.exception.http_exception_book import *
 from api.service.BookApiService import BookService
 from database.repository.BookRepository import BookRepository
 from typing import Union, List, Annotated

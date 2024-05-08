@@ -1,0 +1,11 @@
+
+.form-change-name {
+    width: 40%;
+    margin: auto;
+    text-align: center;
+    margin-top: 15%;
+}
+
+.form-change-name > input {
+    width: 100%;
+}
