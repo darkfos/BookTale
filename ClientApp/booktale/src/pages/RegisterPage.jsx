@@ -1,7 +1,7 @@
 import RegisterButton from "../components/buttons/ButtonForRegister";
 import LoginButton from "../components/buttons/LoginButton";
 import "../components/buttons/ButtonMain.css";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import img_profile from "../static/profile_photo.jpg";
 import api from "../api";
@@ -13,12 +13,11 @@ export default function Register() {
     const [login, setLogin] = useState("");
     const [userphoto, setPhoto] = useState(null);
     const [errorMessage, setError] = useState(null);
+    const [messageSuccess, setMessage] = useState(null);
     const [pass, setPassword] = useState("");
     const [apiResponse, apiSetResponse] = useState("");
 
     const navigate = useNavigate();
-
-    const data = new URLSearchParams();
 
     const fetchAuthUser = async (event) => {
         try {
@@ -36,7 +35,8 @@ export default function Register() {
                 apiSetResponse(responseAPI.status);
                 setError(null);
                 if (apiResponse == "201") {
-                    navigate("/login");
+                    setMessage("Вы были зарегистрированы");
+                    apiSetResponse("201");
                 }
             } else {
                 setError("Некорректные данные для регистрации!")
@@ -65,6 +65,13 @@ export default function Register() {
         }
     }
 
+    //Отрисовка новой страницы
+    useEffect(() => {
+        if (apiResponse == "201") {
+            navigate("/login");
+        }
+    }, [apiResponse])
+
     return (
         <Fragment>
             <form action="" onSubmit={fetchAuthUser} className="form-auth-user">
@@ -84,10 +91,13 @@ export default function Register() {
                 }}/>
                 <input type="file" placeholder="Ваша фотография" onChange={getBytePhoto}/>
                 <div className="btn-form">
-                    <button type="submit" className="btn-main">Войти</button>
-                    <RegisterButton text="Регистрация"/>
+                    <button type="submit" className="btn-main">Регистрация</button>
+                    <button onClick={() => {
+                        navigate("/login")
+                    }} className="btn-main">Авторизация</button>
                 </div>
                 {errorMessage? <p className="error">{errorMessage}</p> : <p></p>}
+                {messageSuccess? <p className="great">{messageSuccess}</p> : <p></p>}
             </form>
         </Fragment>
     )
