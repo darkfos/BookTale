@@ -1,6 +1,6 @@
 import RegisterButton from "../components/buttons/ButtonForRegister";
 import "../components/buttons/ButtonMain.css";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import {setUser} from "../store/slices.js"
 import api from "../api";
@@ -25,15 +25,14 @@ export default function Login() {
 
             event.preventDefault();
             const responseAPI = await api.post("/auth/oauth2", DataAuthUser.toString());
-            apiSetResponse(responseAPI.status);
             
-            
-            if (apiResponse == "201") {
+            if (responseAPI.status == "201") {
                 dispatch(setUser({
                     login: login,
                     token: responseAPI.data.access_token,
                     refresh_token: responseAPI.data.refresh_token
                 }));
+                apiSetResponse(responseAPI.status)
                 navigate("/home");
             }
         } catch (error) {
@@ -41,6 +40,12 @@ export default function Login() {
         }
     }
 
+    //Хук - переход на новую страницу
+    useEffect(() => {
+        if (apiResponse == "201") {
+            navigate("/home");
+        }
+    }, [apiResponse]);
 
     return (
         <Fragment>
