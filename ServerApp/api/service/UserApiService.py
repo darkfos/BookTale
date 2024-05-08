@@ -1,5 +1,5 @@
 from fastapi import HTTPException, status
-from api.exception.http_exception_user import http_404_user_not_found
+from api.exception.http_exception_user import http_404_user_not_found, http_400_dont_create_user
 from sqlalchemy.orm import Session
 from api.dto.UserDTO import AddNewUser, UserIsCreated, UserDo, UserIsDeleted, GetUserInfo, UserIsUpdated, UserProfileInfo
 from database.models.UserTable import User
@@ -27,17 +27,23 @@ class UserService:
 
     @staticmethod
     async def create_user(session: Session, new_user: AddNewUser) -> UserIsCreated:
-        new_user.hasshed_password = SecurityApp().hasshing_password(password=new_user.hasshed_password)
-        result = UserRepository.create_user(
-            session=session,
-            new_user_data=User(**new_user.model_dump())
-        )
+        #Find user
+        find_user = UserRepository.find_user_by_login(session=session, login=new_user.login)
 
-        result = True if result else False
+        if find_user:
+            return http_400_dont_create_user()
+        else:
+            new_user.hasshed_password = SecurityApp().hasshing_password(password=new_user.hasshed_password)
+            result = UserRepository.create_user(
+                session=session,
+                new_user_data=User(**new_user.model_dump())
+            )
 
-        return UserIsCreated(
-            user_created=result
-        )
+            result = True if result else False
+
+            return UserIsCreated(
+                user_created=result
+            )
     
     @staticmethod
     async def delete_user(session: Session, usr_token: str):

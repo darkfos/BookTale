@@ -77,3 +77,12 @@ class UserRepository:
         if result:
             return result.one()[0]
         return False
+    
+    @staticmethod
+    def find_user_by_login(session: Session, login: str) -> bool:
+
+        stmt = select(User).where(User.login == login)
+        result = ( session.execute(stmt) ).one_or_none()
+
+        if result: return True
+        return False
