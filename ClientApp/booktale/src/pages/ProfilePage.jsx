@@ -16,6 +16,7 @@ import useAuthUser from "../hooks/use-auth";
 import { removeUser } from "../store/slices";
 import { setUser } from "../store/slices";
 import ChangeName from "../components/mod/changeName";
+import ChangePhoto from "../components/mod/changePhoto";
 
 
 
@@ -27,6 +28,7 @@ export default function Profile() {
     const navigate = useNavigate();
 
     const [model, setModel] = useState(false);
+    const [model_update, setModelUpdate] = useState(null);
 
     const openModal = () => {
         setModel(true);
@@ -66,7 +68,7 @@ export default function Profile() {
             <main className="container-main">
                 {model? 
                     <Modal isOpen={openModal} onRequestClose={closeModal} className="model">
-                        <ChangeName />
+                        {model_update == "name"? <ChangeName />:<ChangePhoto />}
                         <button onClick={closeModal} className="closeModel">Закрыть</button>
                     </Modal>    
                 :
@@ -75,8 +77,14 @@ export default function Profile() {
                     <img src={img_profile} alt="Фото профиля человека" />
                     <p>{profiledata? profiledata.username : ""}</p>
                     <div className="btn-profile">
-                        <button className="btn-main" onClick={openModal}>Изменить имя</button>
-                        <button className="btn-main">Изменить фото</button>
+                        <button className="btn-main" onClick={() => {
+                            setModelUpdate("name");
+                            openModal();
+                        }}>Изменить имя</button>
+                        <button className="btn-main" onClick={() => {
+                            setModelUpdate("photo");
+                            openModal();
+                        }}>Изменить фото</button>
                         <button className="leaveBtn" onClick={(event) => {
                             dispatch(removeUser());
                         }}>Выйти из аккаунта</button>
