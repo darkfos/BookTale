@@ -6,6 +6,7 @@ from api.dto.BookDTO import *
 from database.db import db_worker
 from database.models.BookTable import Book
 from database.repository.BookRepository import BookRepository
+import base64
 
 
 class BookService:
@@ -77,7 +78,7 @@ class BookService:
         )
     
     @staticmethod
-    async def find_books(session: Session, token: str) -> List[BookSmallInformation]:
+    async def find_books(session: Session, token: str) -> List[BookAboutInformation]:
 
         #Get user_id
         user_id: int = (SecurityApp().decode_jwt_token(token_type="access" ,token=token)).get("user_id")
@@ -86,10 +87,11 @@ class BookService:
 
         if all_books:
             return [
-                BookSmallInformation(
+                BookAboutInformation(
                     title=book[0].title,
                     description=book[0].description,
-                    creator=book[0].user.username
+                    creator=book[0].user.username,
+                    photo=str(book[0].photo_book)
                 )
                     for book in all_books
             ]

@@ -3,3 +3,48 @@
     margin: auto;
     margin-top: 7%;
 }
+
+.book-info{
+    border: 1.5px solid #426B1F;
+    border-radius: 30px;
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 20px;
+    margin: auto;
+    margin-top: 60px;
+}
+
+
+.grn {
+    color: #426B1F;
+    font-weight: bold;
+}
+
+.btn-un-book {
+    padding-top: 20px;
+    width: 100%;
+    text-align: left;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    height: 60%;
+}
+
+.btn-un-book > button {
+    background-color: #426B1F;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.4s;
+    color: white;
+}
+
+.btn-un-book > button:hover {
+    background-color: #AB6B35;
+}
+
+.img-book {
+    text-align: center;
+    margin: auto;
+}

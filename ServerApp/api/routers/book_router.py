@@ -113,10 +113,10 @@ async def delete_book(
 @book_router.get(
     path="/get-desc-book",
     status_code=status.HTTP_200_OK,
-    response_model=List[BookSmallInformation]
+    response_model=List[BookAboutInformation]
 )
 async def get_small_info_about_book(
     session: Annotated[Session, Depends(db_worker.get_session)],
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)]
-) -> List[BookSmallInformation]:
+) -> List[BookAboutInformation]:
     return await BookService.find_books(session=session, token=usr_data)
