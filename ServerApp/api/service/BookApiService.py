@@ -75,3 +75,23 @@ class BookService:
         return BookIsDeleted(
             book_deleted=is_deleted
         )
+    
+    @staticmethod
+    async def find_books(session: Session, token: str) -> List[BookSmallInformation]:
+
+        #Get user_id
+        user_id: int = (SecurityApp().decode_jwt_token(token_type="access" ,token=token)).get("user_id")
+        
+        all_books: tuple = BookRepository.get_all_books_usr(session=session, user_id=user_id)
+
+        if all_books:
+            return [
+                BookSmallInformation(
+                    title=book[0].title,
+                    description=book[0].description,
+                    creator=book[0].user.username
+                )
+                    for book in all_books
+            ]
+        else:
+            return await http_404_book_not_found()
