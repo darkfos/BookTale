@@ -33,7 +33,7 @@ export default function Profile() {
     }
 
     const closeModal= () => {
-        setModel(true);
+        setModel(false);
     }
 
 
@@ -54,21 +54,6 @@ export default function Profile() {
                     setImage(img.src);
                 }
             } catch (error) {
-                const response_r = await api.post("/auth/refresh-token", {
-                    credentials: "include"
-                }, {
-                    withCredentials: true
-                });
-
-
-                if (response_r.status == "200") {
-                    dispatch(setUser({
-                        login: login,
-                        token: response_r.data.access_token,
-                        refresh_token: response_r.data.refresh_token
-                    }))
-                    navigate("/home");
-                }
             }
         }
 
@@ -80,8 +65,9 @@ export default function Profile() {
             <Header />
             <main className="container-main">
                 {model? 
-                    <Modal isOpen={openModal} onRequestClose={closeModal}>
+                    <Modal isOpen={openModal} onRequestClose={closeModal} className="model">
                         <ChangeName />
+                        <button onClick={closeModal} className="closeModel">Закрыть</button>
                     </Modal>    
                 :
                 <div className="profile-info">
@@ -89,12 +75,12 @@ export default function Profile() {
                     <img src={img_profile} alt="Фото профиля человека" />
                     <p>{profiledata? profiledata.username : ""}</p>
                     <div className="btn-profile">
-                        <button className="btn-main">Изменить имя</button>
+                        <button className="btn-main" onClick={openModal}>Изменить имя</button>
                         <button className="btn-main">Изменить фото</button>
                         <button className="leaveBtn" onClick={(event) => {
                             dispatch(removeUser());
                         }}>Выйти из аккаунта</button>
-                        <button className="delBtn" onClick={openModal}>Удалить профиль</button>
+                        <button className="delBtn">Удалить профиль</button>
                     </div>
                 </div>
                 <div className="right-profile-info">

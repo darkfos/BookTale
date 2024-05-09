@@ -8,4 +8,34 @@
 
 .form-change-name > input {
     width: 100%;
+    border-radius: 30px;
+    border: 1.5px solid #426B1F;
+    padding: 5px;
+}
+
+.message_success {
+    color: green;
+    font-weight: bold;
+}
+
+.model {
+    width: 50%;
+    margin: auto;
+    background-color: #f1efeb;
+    border-radius: 30px;
+}
+
+.btn-update {
+    width: 30%;
+    height: 30px;
+    background-color: #426B1F;
+    border-radius: 30px;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+.btn-update:hover {
+    background-color: #df8600;
 }
