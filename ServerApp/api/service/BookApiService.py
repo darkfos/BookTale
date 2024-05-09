@@ -88,6 +88,7 @@ class BookService:
         if all_books:
             return [
                 BookAboutInformation(
+                    id_book=book[0].id,
                     title=book[0].title,
                     description=book[0].description,
                     creator=book[0].user.username,

@@ -50,3 +50,4 @@ class BookAboutInformation(BaseModel):
     description: Annotated[str, Field()]
     creator: Annotated[str, Field()]
     photo: Annotated[Union[str, bytes], Field()]
+    id_book: Annotated[int, Field()]
