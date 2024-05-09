@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import api from "../api";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Header from "../components/general/Header";
 import Footer from "../components/general/Footer";
@@ -18,6 +18,8 @@ export default function MyBooks() {
     const [photo, setPhoto] = useState(null);
     const [file, setFile] = useState(null);
     const {login, token, refresh_token}= useAuthUser();
+
+    const navigate = useNavigate();
 
 
     const createBook = async (event) => {
@@ -39,41 +41,9 @@ export default function MyBooks() {
             }
         });
 
-        console.log(response.status);
-    }
-
-    const getBytePhoto = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const arrayBuffer = e.target.result;
-            let byteArray = new Uint8Array(arrayBuffer);
-            let base64String = btoa(String.fromCharCode.apply(null, byteArray)).toString();
-            setPhoto(base64String);
-        };
-        reader.readAsArrayBuffer(file);
-    }
-
-
-    const getByteFile = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const arrayBuffer = e.target.result;
-            const base64String = arrayBufferToBase64(arrayBuffer);
-            setFile(base64String);
-        };
-        reader.readAsArrayBuffer(file);
-    }
-    
-    const arrayBufferToBase64 = (buffer) => {
-        let binary = '';
-        const bytes = new Uint8Array(buffer);
-        const len = bytes.byteLength;
-        for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
+        if (response.status == "201") {
+            navigate("/home");
         }
-        return btoa(binary);
     }
 
     return (

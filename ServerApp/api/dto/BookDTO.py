@@ -11,8 +11,11 @@ class BookBase(BaseModel):
     creator: Annotated[str, Field()]
 
 
-class AddBook(BookBase):
-    pass
+class AddBook(BaseModel):
+    title: Annotated[str, Field()]
+    description: Annotated[str, Field()]
+    photo_book: Annotated[Union[bytes, str], Field()]
+    file_data: Annotated[Union[bytes, str], Field()]
 
 
 class DeleteBook(BaseModel):
