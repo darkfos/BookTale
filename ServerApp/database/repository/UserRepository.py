@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import select, insert, delete, update
 from database.models.UserTable import User
+from database.models.BookTable import Book
+from database.models.ReviewTable import Review
 from typing import Union
 
 
@@ -28,11 +30,23 @@ class UserRepository:
     @staticmethod
     def delete_user(session: Session, user_id: int) -> bool:
         try:
+            #Delete Book 
+            books = delete(Book).where(Book.id_user == user_id)
+            session.execute(books)
+            session.commit()
+            
+            #Delete Review
+            reviews = delete(Review).where(Review.id_user == user_id)
+            session.execute(reviews)
+            session.commit()
+
+            #Delete user
             user = delete(User).where(User.id == user_id)
             session.execute(user)
             session.commit()
             return True
         except Exception as ex:
+            print(ex)
             return False
         
     @staticmethod

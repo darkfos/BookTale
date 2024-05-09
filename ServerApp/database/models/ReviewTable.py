@@ -9,10 +9,10 @@ class Review(DeclBase):
     __tablename__ = "review"
 
     message: Mapped[str] = mapped_column(String(350))
-    id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    id_user: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
     
     #relation to user
-    user: Mapped["User"] = relationship(back_populates="reviews")
+    usssr: Mapped["User"] = relationship(back_populates="reviews")
 
 
     def __str__(self):

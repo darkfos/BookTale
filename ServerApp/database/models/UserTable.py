@@ -17,7 +17,7 @@ class User(DeclBase):
     date_update: Mapped[datetime]
 
     #relation
-    reviews: Mapped[List["Review"]] = relationship(back_populates="user", cascade="save-update, merge, delete", passive_deletes=True)
+    reviews: Mapped[List["Review"]] = relationship(back_populates="usssr", cascade="save-update, merge, delete", passive_deletes=True)
     books: Mapped[List["Book"]] = relationship(back_populates="user", cascade="save-update, merge, delete", passive_deletes=True)
 
 

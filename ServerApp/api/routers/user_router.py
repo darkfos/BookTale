@@ -25,8 +25,8 @@ async def registration_user(session: Annotated[Session, Depends(db_worker.get_se
 @user_router.delete("/delete_user",
                     status_code=status.HTTP_200_OK,
                     response_model=UserIsDeleted)
-async def delete_user(session: Annotated[Session, Depends(db_worker.get_session)], usr_data: Annotated[UserDo, Depends(SecurityApp().oauth2_scheme)]):
-    return await UserService.delete_user(session=session, del_user=usr_data)
+async def delete_user(session: Annotated[Session, Depends(db_worker.get_session)], usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)]):
+    return await UserService.delete_user(session=session, usr_token=usr_data)
 
 
 @user_router.get("/get-info", status_code=status.HTTP_201_CREATED, response_model=GetUserInfo)

@@ -13,7 +13,7 @@ class Book(DeclBase):
     photo_book: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
     file_data: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
 
-    id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    id_user: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
 
     #relation
     user: Mapped["User"] = relationship(back_populates="books")

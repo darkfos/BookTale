@@ -62,6 +62,21 @@ export default function Profile() {
         getProfileData();
     }, [token]);
 
+
+    const deleteUser = async () => {
+        const response = await api.delete("/user/delete_user", {
+            headers: {
+                Authorization: "Bearer " + token,
+            }
+        });
+
+        if (response.status == "200") {
+            dispatch(
+                removeUser()
+            );
+        }
+    }
+
     return (
         <Fragment>
             <Header />
@@ -88,7 +103,7 @@ export default function Profile() {
                         <button className="leaveBtn" onClick={(event) => {
                             dispatch(removeUser());
                         }}>Выйти из аккаунта</button>
-                        <button className="delBtn">Удалить профиль</button>
+                        <button className="delBtn" onClick={deleteUser}>Удалить профиль</button>
                     </div>
                 </div>
                 <div className="right-profile-info">
