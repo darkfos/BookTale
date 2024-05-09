@@ -81,6 +81,8 @@ export default function Reviews() {
                         <textarea name="message" id="" cols="30" rows="10" className="message_from_user" placeholder="Ваш отзыв" onChange={(event) => {
                             setMessage(event.target.value);
                         }}></textarea>
+                        <br />
+                        <br />
                         <button type="submit" className="btn-main">Отправить</button>
                     </form>
                 </div>

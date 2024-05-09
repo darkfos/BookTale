@@ -56,7 +56,7 @@ class ReviewRepository:
     ) -> tuple:
         
         stmt = select(Review).options(
-            joinedload(Review.user)
+            joinedload(Review.usssr)
         )
         result = ( session.execute(stmt) ).all()
 

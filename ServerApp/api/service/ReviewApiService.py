@@ -76,6 +76,6 @@ class ReviewService:
 
         return RandomReview(
             message=result.message,
-            user_photo=str(result.user.photo_user),
-            username=result.user.username
+            user_photo=str(result.usssr.photo_user),
+            username=result.usssr.username
         )
