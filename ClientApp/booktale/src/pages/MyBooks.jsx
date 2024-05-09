@@ -6,6 +6,7 @@ import Footer from "../components/general/Footer";
 import "./PagesCss.css";
 import { useState, useEffect } from "react";
 import useAuthUser from "../hooks/use-auth";
+import { useNavigate } from "react-router-dom";
 
 
 export default function MyBooks() {
@@ -13,6 +14,7 @@ export default function MyBooks() {
     const {login, token, refresh_token} = useAuthUser();
     const [image_book, setImgBook] = useState(null);
     const [res, setRes] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const req = async () => {
@@ -36,6 +38,22 @@ export default function MyBooks() {
         return img.src;
     }
 
+    const del_book = async (id_book) => {
+        const req = await api.delete("/book/delete-book", {
+            headers: {
+                Authorization: "Bearer " + token
+            },
+            params: {
+                "book_id": id_book
+            }
+        })
+
+        if (req.status == "200") {
+            alert("Ваша книга была удалена");
+            navigate("/profile");
+        }
+    }
+
     return (
         <Fragment>
             <Header />
@@ -51,8 +69,9 @@ export default function MyBooks() {
                                 <p>Создатель: <span className="grn">{book.creator}</span></p>
                             </div>
                             <div className="btn-un-book">
-                                <button>Удалить</button>
-                                <button>Скачать</button>
+                                <button value={book.id_book} onClick={(e) => {
+                                    del_book(e.target.value)
+                                }}>Удалить</button>
                             </div>
                         </div>
                     ))
