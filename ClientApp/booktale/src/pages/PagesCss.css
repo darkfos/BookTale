@@ -23,12 +23,12 @@
 
 .btn-un-book {
     padding-top: 20px;
-    width: 100%;
+    width: 70%;
     text-align: left;
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(2, 1fr);
-    height: 60%;
+    height: 30px;
 }
 
 .btn-un-book > button {
@@ -87,4 +87,38 @@
     margin-top: 10%;
     color: red;
     font-weight: bold;
+}
+
+.bk-unique {
+    width: 70%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1.5px solid #426B1F;
+    border-radius: 30px;
+    margin-top: 4%;
+}
+
+.bk-unique > img {
+    text-align: center;
+    margin: auto;
+}
+
+.info {
+    padding-bottom: 10px;
+}
+
+.info > button {
+    background-color: #426B1F;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    width: 30%;
+    height: 30px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.info > button:hover {
+    background-color: #AB6B35;
 }

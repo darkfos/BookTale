@@ -63,12 +63,13 @@ export default function MyBooks() {
             },
             params: {
                 "book_id": id_book
-            }
+            },
         })
 
         if (req.status == "200") {
             alert("Пожалуйста подождите, скоро начнется процесс скачивания файла...");
             const fileUrl = req.data;
+
             const link = document.createElement('a');
             link.href = fileUrl;
             link.setAttribute('download', 'book');
@@ -91,14 +92,14 @@ export default function MyBooks() {
                                 <h3>{book.title}</h3>
                                 <p>{book.description}</p>
                                 <p>Создатель: <span className="grn">{book.creator}</span></p>
-                            </div>
-                            <div className="btn-un-book">
-                                <button value={book.id_book} onClick={(e) => {
-                                    del_book(e.target.value)
-                                }}>Удалить</button>
-                                <button value={book.id_book} onClick={(e) => {
-                                    download_book(e.target.value)
-                                }}>Скачать</button>
+                                <div className="btn-un-book">
+                                    <button value={book.id_book} onClick={(e) => {
+                                        del_book(e.target.value)
+                                    }}>Удалить</button>
+                                    <button value={book.id_book} onClick={(e) => {
+                                        download_book(e.target.value)
+                                    }}>Скачать</button>
+                                </div>
                             </div>
                         </div>
                     ))

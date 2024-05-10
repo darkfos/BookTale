@@ -108,10 +108,10 @@ class BookService:
         all_books: tuple = BookRepository.get_all_books(session=session)
 
         if all_books:
-            to_find_example = re.compile(rf".*{title}.*")
+            to_find_example = re.compile(rf".*{title.lower()}.*")
             result: list = list()
             for book in all_books:
-                search_to_title = re.search(to_find_example, book[0].title)
+                search_to_title = re.search(to_find_example, book[0].title.lower())
                 if search_to_title:
                     result.append(
                         BookAboutInformation(
@@ -122,6 +122,7 @@ class BookService:
                             photo=str(book[0].photo_book)
                         )
                     )
-            return result
+            if result: return result
+            return await http_404_book_not_found()
         else:
             return await http_404_book_not_found()

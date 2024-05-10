@@ -10,6 +10,7 @@ from database.repository.BookRepository import BookRepository
 from typing import Union, List, Annotated
 from other.convert_file import get_docx_file
 from database.models.BookTable import Book
+import base64
 
 
 book_router: APIRouter = APIRouter(
@@ -89,8 +90,7 @@ async def download_book_by_id(
     book_id: int
 ):
     file: Book = await BookService.get_book_by_id_for_download(session=session, token=str(usr_data), book_id=book_id)
-    file_path: str = "/home/darkfos/Desktop/BookTale/BookTale/ServerApp/other/doc/" + await get_docx_file(file=file.file_data, file_name=file.title, file_id=file.id)
-    return file_path
+    return str(file.file_data)
 
 
 @book_router.get(
@@ -138,7 +138,7 @@ async def get_small_info_about_book(
 
 
 @book_router.get(
-    path="/book/find-by-title",
+    path="/find-by-title",
     status_code=status.HTTP_200_OK,
     response_model=List[BookAboutInformation]
 )
