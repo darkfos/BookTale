@@ -17,7 +17,7 @@ export default function Home() {
             <main className="container-main">
                 <div className="header">
                     <h1>Ваша любимая библиотека теперь в браузере!</h1>
-                    <ButtonMain text="Найти книгу"/>
+                    <ButtonMain text="Найти книгу" nvg="/search-book"/>
                 </div>
                 <br></br>
                 <br></br>

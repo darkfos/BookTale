@@ -16,6 +16,7 @@ import Login from './pages/LoginPage';
 import Register from './pages/RegisterPage';
 import CreateBook from './pages/CreateBook.jsx';
 import MyBooks from './pages/MyBooks.jsx';
+import SearchBook from './pages/searchBook.jsx';
 import {store} from "./store/index.js";
 
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "/my_books",
         element: <MyBooks />
+      },
+      {
+        path: "/search-book",
+        element: <SearchBook />
       }
     ]
   }

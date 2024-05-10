@@ -24,7 +24,7 @@ function App() {
     }
   }
 
-  setInterval(() => update_token(), 240000000); //Update in 4s - 240000000
+  setInterval(() => update_token(), 240000); //Update in 4s - 240000000
   return isAuth ? (
     <Fragment>
       <Outlet />

@@ -13,7 +13,7 @@ export default function Header() {
     return (
         <header>
             <div className="logo">
-                <a href="/">BookTale</a>
+                <Link to="/home">BookTale</Link>
             </div>
             <nav className="">
                 <Link to="/home" onClick={() => {
@@ -45,7 +45,7 @@ export default function Header() {
                     }));
                 }}>Мой профиль</Link>
                 <button onClick={() => {
-                    navigate_site("/search");
+                    navigate_site("/search-book");
                 }} className="btn_search">Поиск</button>
             </nav>
             <Outlet />

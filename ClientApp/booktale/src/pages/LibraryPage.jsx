@@ -17,7 +17,7 @@ export default function Library() {
                 <div className="header">
                     <h1>Добро пожаловать в библиотеку, здесь вы можете опубликовать свой материал</h1>
                     <div className="btn-library">
-                    <ButtonMain text="Создать"/>
+                    <ButtonMain text="Создать" nvg="/create_new_book"/>
                     <BrownButton text="Мои записи"/>
                     </div>
                 </div>
