@@ -19,6 +19,7 @@ passlib = "^1.7.4"
 psycopg = "^3.1.18"
 docx = "^0.2.4"
 python-docx = "^1.1.2"
+docx2pdf = "^0.1.8"
 
 
 [build-system]

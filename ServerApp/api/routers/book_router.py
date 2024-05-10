@@ -75,8 +75,23 @@ async def download_unique_user_book(
     file: Book = await BookService.get_book_by_id_for_download(session=session, token=str(usr_data), book_id=book_id)
     file_io: str = await get_docx_file(file=file.file_data, file_name=file.title, file_id=file.id)
     return FileResponse(
-        file_io, filename=file.title, media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        file_io, filename=file.title, media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf"
     )
+
+
+@book_router.get(
+        path="/download-id-book",
+        status_code=status.HTTP_200_OK
+)
+async def download_book_by_id(
+    session: Annotated[Session, Depends(db_worker.get_session)],
+    usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
+    book_id: int
+):
+    file: Book = await BookService.get_book_by_id_for_download(session=session, token=str(usr_data), book_id=book_id)
+    file_path: str = "/home/darkfos/Desktop/BookTale/BookTale/ServerApp/other/doc/" + await get_docx_file(file=file.file_data, file_name=file.title, file_id=file.id)
+    return file_path
+
 
 @book_router.get(
     path="/get-information-about-book",

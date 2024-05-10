@@ -54,6 +54,30 @@ export default function MyBooks() {
         }
     }
 
+    const download_book = async (id_book) => {
+        const req = await api.get("/book/download-unique-book", {
+            headers: {
+                Authorization: "Bearer " + token,
+                "Content-Disposition": "attachment",
+                "Content-Type": "application/pdf, application/octet-stream"
+            },
+            params: {
+                "book_id": id_book
+            }
+        })
+
+        if (req.status == "200") {
+            alert("Пожалуйста подождите, скоро начнется процесс скачивания файла...");
+            const fileUrl = req.data;
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.setAttribute('download', 'book');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
     return (
         <Fragment>
             <Header />
@@ -72,6 +96,9 @@ export default function MyBooks() {
                                 <button value={book.id_book} onClick={(e) => {
                                     del_book(e.target.value)
                                 }}>Удалить</button>
+                                <button value={book.id_book} onClick={(e) => {
+                                    download_book(e.target.value)
+                                }}>Скачать</button>
                             </div>
                         </div>
                     ))
