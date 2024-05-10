@@ -48,3 +48,43 @@
     text-align: center;
     margin: auto;
 }
+
+
+.find-book {
+    display: fled;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.find-book > button {
+    width: 20%;
+    margin-left: 5%;
+    background-color: #426B1F;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.find-book > button:hover {
+    background-color: #AB6B35;
+}
+
+.find-book > input {
+    border: 1.5px solid #426B1F;
+    border-radius: 30px;
+    padding: 10px;
+    width: 60%;
+}
+
+.lineMessage {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    margin-top: 10%;
+    color: red;
+    font-weight: bold;
+}

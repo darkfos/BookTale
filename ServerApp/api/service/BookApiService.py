@@ -6,6 +6,7 @@ from api.dto.BookDTO import *
 from database.db import db_worker
 from database.models.BookTable import Book
 from database.repository.BookRepository import BookRepository
+import re
 import base64
 
 
@@ -96,5 +97,31 @@ class BookService:
                 )
                     for book in all_books
             ]
+        else:
+            return await http_404_book_not_found()
+    
+    @staticmethod
+    async def find_books_by_title(session: Session, token: str, title: str) -> List[BookAboutInformation]:
+        #Get user_id
+        user_id: int = (SecurityApp().decode_jwt_token(token_type="access" ,token=token)).get("user_id")
+
+        all_books: tuple = BookRepository.get_all_books(session=session)
+
+        if all_books:
+            to_find_example = re.compile(rf".*{title}.*")
+            result: list = list()
+            for book in all_books:
+                search_to_title = re.search(to_find_example, book[0].title)
+                if search_to_title:
+                    result.append(
+                        BookAboutInformation(
+                            title=book[0].title,
+                            description=book[0].description,
+                            creator=book[0].user.username,
+                            id_book=book[0].id,
+                            photo=str(book[0].photo_book)
+                        )
+                    )
+            return result
         else:
             return await http_404_book_not_found()

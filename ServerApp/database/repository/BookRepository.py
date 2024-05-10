@@ -48,3 +48,14 @@ class BookRepository:
             raise ex
         except Exception as ex:
             return False
+        
+    @staticmethod
+    def get_all_books(session: Session) -> Union[bool, tuple]:
+        stmt = select(Book).options(
+            joinedload(Book.user)
+        )
+        res = (session.execute(stmt).all())
+
+        if res:
+            return res
+        else: return False
