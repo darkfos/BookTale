@@ -14,7 +14,7 @@ auth_router: APIRouter = APIRouter(
 )
 
 #Authenticate user
-@auth_router.post("/oauth2", status_code=status.HTTP_201_CREATED, response_model=ResponseToken)
+@auth_router.post("/oauth2", status_code=status.HTTP_201_CREATED, response_model=ResponseToken, description="Авторизация, получение токена")
 async def auth_user(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     session: Annotated[Session, Depends(db_worker.get_session)]
@@ -36,7 +36,7 @@ async def auth_user(
 
     return result
 
-@auth_router.post("/refresh-token", status_code=status.HTTP_200_OK, response_model=ResponseToken)
+@auth_router.post("/refresh-token", status_code=status.HTTP_200_OK, response_model=ResponseToken, description="Обновление токена")
 async def update_token(data: Request):
     token_data: ResponseToken = SecurityApp().decode_jwt_token(token_type="refresh", token=data.cookies.get("Refresh-token"))
     response = JSONResponse(

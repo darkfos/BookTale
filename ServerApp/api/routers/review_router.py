@@ -14,7 +14,7 @@ review_router: APIRouter = APIRouter(
 )
 
 
-@review_router.post("/create-review", status_code=status.HTTP_201_CREATED, response_model=ReviewIsCreated)
+@review_router.post("/create-review", status_code=status.HTTP_201_CREATED, response_model=ReviewIsCreated, description="Создание отзыва")
 async def create_review(
     session: Annotated[Session, Depends(db_worker.get_session)],
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
@@ -23,7 +23,7 @@ async def create_review(
     return await ReviewService.create_new_review(session=session, token=usr_data, new_review=new_review)
 
 
-@review_router.get("/get-all-reviews", status_code=status.HTTP_200_OK, response_model=List[ReviewData])
+@review_router.get("/get-all-reviews", status_code=status.HTTP_200_OK, response_model=List[ReviewData], description="Получение всех отзывов")
 async def get_all_review(
     session: Annotated[Session, Depends(db_worker.get_session)],
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)]
@@ -31,7 +31,7 @@ async def get_all_review(
     return await ReviewService.get_all_reviews_user(session=session, token=usr_data)
 
 
-@review_router.delete("/delete-review", status_code=status.HTTP_200_OK, response_model=ReviewIsDeleted)
+@review_router.delete("/delete-review", status_code=status.HTTP_200_OK, response_model=ReviewIsDeleted, description="Удаление отзыва")
 async def delete_review(
     session: Annotated[Session, Depends(db_worker.get_session)],
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
@@ -40,7 +40,7 @@ async def delete_review(
     return await ReviewService.delete_review(session=session, review_id=review_id)
 
 
-@review_router.get("/unique-review", status_code=status.HTTP_200_OK, response_model=ReviewData)
+@review_router.get("/unique-review", status_code=status.HTTP_200_OK, response_model=ReviewData, description="Получение информации об отзыве по его ид")
 async def get_review(
     session: Annotated[Session, Depends(db_worker.get_session)],
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
@@ -49,7 +49,7 @@ async def get_review(
     return await ReviewService.get_by_id(session=session, review_id=review_id)
 
 
-@review_router.get("/random-review", status_code=status.HTTP_200_OK, response_model=RandomReview)
+@review_router.get("/random-review", status_code=status.HTTP_200_OK, response_model=RandomReview, description="Получение рандомного отзыва")
 async def get_random_review(
     session: Annotated[Session, Depends(db_worker.get_session)],
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)]

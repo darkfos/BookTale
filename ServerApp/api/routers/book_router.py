@@ -22,6 +22,7 @@ book_router: APIRouter = APIRouter(
 @book_router.post(
     path="/create_book",
     status_code=status.HTTP_201_CREATED,
+    description="Создание книги"
 )
 async def create_new_book(
     session: Annotated[Session, Depends(db_worker.get_session)],
@@ -49,7 +50,8 @@ async def create_new_book(
 @book_router.get(
     path="/get-all-user-books",
     status_code=status.HTTP_200_OK,
-    response_model=List[GetBook]
+    response_model=List[GetBook],
+    description="Получение всех книг пользователя"
 )
 async def get_all_books_for_user(
     session: Annotated[Session, Depends(db_worker.get_session)],
@@ -67,6 +69,7 @@ async def get_all_books_for_user(
 @book_router.get(
     path="/download-unique-book",
     status_code=status.HTTP_200_OK,
+    description="Установка уникальной книги по ид"
 )
 async def download_unique_user_book(
     session: Annotated[Session, Depends(db_worker.get_session)],
@@ -82,7 +85,8 @@ async def download_unique_user_book(
 
 @book_router.get(
         path="/download-id-book",
-        status_code=status.HTTP_200_OK
+        status_code=status.HTTP_200_OK,
+        description="Установка книги по ид, получение его пути"
 )
 async def download_book_by_id(
     session: Annotated[Session, Depends(db_worker.get_session)],
@@ -96,7 +100,8 @@ async def download_book_by_id(
 @book_router.get(
     path="/get-information-about-book",
     status_code=status.HTTP_200_OK,
-    response_model=BookSmallInformation
+    response_model=BookSmallInformation,
+    description="Получение информации об книге"
 )
 async def information_about_book(
     session: Annotated[Session, Depends(db_worker.get_session)],
@@ -114,7 +119,8 @@ async def information_about_book(
 @book_router.delete(
     path="/delete-book",
     status_code=status.HTTP_200_OK,
-    response_model=BookIsDeleted
+    response_model=BookIsDeleted,
+    description="Удаление книги"
 )
 async def delete_book(
     session: Annotated[Session, Depends(db_worker.get_session)],
@@ -128,7 +134,8 @@ async def delete_book(
 @book_router.get(
     path="/get-desc-book",
     status_code=status.HTTP_200_OK,
-    response_model=List[BookAboutInformation]
+    response_model=List[BookAboutInformation],
+    description="Получение краткой информации об книгк"
 )
 async def get_small_info_about_book(
     session: Annotated[Session, Depends(db_worker.get_session)],
@@ -140,7 +147,8 @@ async def get_small_info_about_book(
 @book_router.get(
     path="/find-by-title",
     status_code=status.HTTP_200_OK,
-    response_model=List[BookAboutInformation]
+    response_model=List[BookAboutInformation],
+    description="Поиск книги по заголовку"
 )
 async def get_information_about_book_by_title(
     session: Annotated[Session, Depends(db_worker.get_session)],

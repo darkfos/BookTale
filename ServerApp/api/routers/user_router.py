@@ -17,19 +17,21 @@ user_router = APIRouter(
 
 @user_router.post("/registration",
                   status_code=status.HTTP_201_CREATED,
-                  response_model=UserIsCreated)
+                  response_model=UserIsCreated,
+                  description="Регистрация пользователя")
 async def registration_user(session: Annotated[Session, Depends(db_worker.get_session)], new_user: AddNewUser):
     return await UserService.create_user(session=session, new_user=new_user)
 
 
 @user_router.delete("/delete_user",
                     status_code=status.HTTP_200_OK,
-                    response_model=UserIsDeleted)
+                    response_model=UserIsDeleted,
+                    description="Удаление пользователя")
 async def delete_user(session: Annotated[Session, Depends(db_worker.get_session)], usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)]):
     return await UserService.delete_user(session=session, usr_token=usr_data)
 
 
-@user_router.get("/get-info", status_code=status.HTTP_201_CREATED, response_model=GetUserInfo)
+@user_router.get("/get-info", status_code=status.HTTP_201_CREATED, response_model=GetUserInfo, description="Получение информации об пользователе")
 async def get_information_about_user(
     usr_data: Annotated[UserDo, Depends(SecurityApp().oauth2_scheme)],
     session: Annotated[Session, Depends(db_worker.get_session)]
@@ -39,7 +41,7 @@ async def get_information_about_user(
     return data
 
 
-@user_router.patch("/update-user-photo", status_code=status.HTTP_200_OK, response_model=UserIsUpdated)
+@user_router.patch("/update-user-photo", status_code=status.HTTP_200_OK, response_model=UserIsUpdated, description="Обновление фотографии пользователя")
 async def update_user_photo(
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
     session: Annotated[Session, Depends(db_worker.get_session)],
@@ -56,7 +58,7 @@ async def update_user_photo(
     )
 
 
-@user_router.patch("/update-user-name", status_code=status.HTTP_200_OK, response_model=UserIsUpdated)
+@user_router.patch("/update-user-name", status_code=status.HTTP_200_OK, response_model=UserIsUpdated, description="Обновление имени пользователя")
 async def update_user_name(
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
     session: Annotated[Session, Depends(db_worker.get_session)],
@@ -65,7 +67,7 @@ async def update_user_name(
     return await UserService().update_user_name(session=session, token=usr_data, new_name=new_name)
 
 
-@user_router.get("/profile-information", status_code=status.HTTP_200_OK, response_model=UserProfileInfo)
+@user_router.get("/profile-information", status_code=status.HTTP_200_OK, response_model=UserProfileInfo, description="Получение полной информации об пользователе")
 async def user_personal_information(
     usr_data: Annotated[str, Depends(SecurityApp().oauth2_scheme)],
     session: Annotated[Session, Depends(db_worker.get_session)]
